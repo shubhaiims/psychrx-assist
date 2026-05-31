@@ -1,0 +1,27 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Pharmacological management of substance use disorders",
+  "citation_title": "IPS CPG: Substance Use Disorders (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-SUD-NALTREXONE-OPIOID-FREE",
+      "diagnosis": ["alcohol_use_disorder", "opioid_use_disorder"],
+      "population": "any",
+      "drug_or_drug_class": "Naltrexone",
+      "recommendation_category": "use_with_caution",
+      "score_modifier": -15,
+      "explanation_for_clinician": "Naltrexone is an opioid antagonist: confirm an adequate opioid-free interval before starting to avoid precipitated withdrawal; it is not for actively opioid-dependent patients without prior detoxification.",
+      "missing_investigations": ["Confirm opioid-free interval / withdrawal status (and follow local naloxone-challenge protocol) before initiation."],
+      "monitoring_required": ["Liver function monitoring."]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Prescribing in older adults",
+  "citation_title": "IPS CPG: Geriatric Psychiatry (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-GER-ANTIPSYCH-DEMENTIA",
+      "diagnosis": "dementia_related_behavioural_symptoms",
+      "population": "elderly",
+      "drug_or_drug_class": "Second-generation antipsychotic",
+      "recommendation_category": "not_preferred",
+      "contraindication_level": "relative",
+      "score_modifier": -35,
+      "explanation_for_clinician": "Antipsychotics increase mortality and cerebrovascular events in elderly patients with dementia (boxed warning); reserve for severe risk/distress after non-pharmacological measures, at the lowest dose for the shortest time, with documented consent and review.",
+      "monitoring_required": ["Document indication and consent; review need for continuation regularly."]
+    },
+    {
+      "rule_id": "IPS-GER-START-LOW",
+      "diagnosis": "any",
+      "population": "elderly",
+      "drug_or_drug_class": "any",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "In older adults, start low and go slow, check renal function for renally-cleared drugs, minimise anticholinergic burden, and review regularly (Beers/STOPP).",
+      "monitoring_required": ["Start low, go slow; review regularly and minimise polypharmacy."]
+    }
+  ]
+}

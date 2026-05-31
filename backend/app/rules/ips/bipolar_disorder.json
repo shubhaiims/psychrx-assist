@@ -1,0 +1,56 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Pharmacological management of bipolar disorder",
+  "citation_title": "IPS CPG: Bipolar Disorder (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-BIP-LITHIUM-FIRSTLINE",
+      "diagnosis": ["bipolar_mania", "bipolar_maintenance"],
+      "population": "any",
+      "drug_or_drug_class": "Lithium",
+      "recommendation_category": "first_line",
+      "score_modifier": 8,
+      "explanation_for_clinician": "Lithium is a first-line agent for acute mania and for maintenance, with anti-suicidal benefit; it requires baseline and ongoing renal and thyroid monitoring.",
+      "missing_investigations": ["Renal function, thyroid function, calcium; pregnancy test if relevant; ECG if cardiac risk."],
+      "monitoring_required": ["Serum lithium level, renal and thyroid function periodically."]
+    },
+    {
+      "rule_id": "IPS-BIP-MANIA-SGA",
+      "diagnosis": "bipolar_mania",
+      "population": "any",
+      "drug_or_drug_class": "Second-generation antipsychotic",
+      "recommendation_category": "first_line",
+      "score_modifier": 6,
+      "explanation_for_clinician": "Second-generation antipsychotics are first-line options for acute mania, alone or combined with a mood stabiliser."
+    },
+    {
+      "rule_id": "IPS-BIP-DEPRESSION-LAMOTRIGINE",
+      "diagnosis": "bipolar_depression",
+      "population": "any",
+      "drug_or_drug_class": "Lamotrigine",
+      "recommendation_category": "preferred",
+      "score_modifier": 6,
+      "explanation_for_clinician": "Lamotrigine is an option for the depressive pole of bipolar disorder and for maintenance preventing depressive episodes."
+    },
+    {
+      "rule_id": "IPS-BIP-VALPROATE-CHILDBEARING",
+      "diagnosis": ["bipolar_mania", "bipolar_depression", "bipolar_maintenance"],
+      "population": "childbearing_potential",
+      "drug_or_drug_class": "Valproate",
+      "recommendation_category": "not_preferred",
+      "contraindication_level": "relative",
+      "score_modifier": -30,
+      "explanation_for_clinician": "Valproate carries high teratogenic and neurodevelopmental risk; avoid in people of childbearing potential unless other options have failed and an effective pregnancy-prevention plan is in place.",
+      "missing_investigations": ["Documented pregnancy-prevention counselling and pregnancy test before valproate."]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Antipsychotic selection in schizophrenia/psychosis",
+  "citation_title": "IPS CPG: Schizophrenia (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-SCZ-SGA-METABOLIC",
+      "diagnosis": ["schizophrenia", "acute_psychosis"],
+      "population": "any",
+      "drug_or_drug_class": "Second-generation antipsychotic",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "Choose an antipsychotic by efficacy and side-effect profile and patient preference; second-generation agents require baseline and periodic metabolic monitoring.",
+      "missing_investigations": ["Baseline weight/BMI, fasting glucose/HbA1c, lipids; ECG where indicated."],
+      "monitoring_required": ["Periodic metabolic monitoring (weight/BMI, glucose/HbA1c, lipids)."]
+    },
+    {
+      "rule_id": "IPS-SCZ-CLOZAPINE-TRD",
+      "diagnosis": "schizophrenia",
+      "population": "any",
+      "drug_or_drug_class": "Clozapine",
+      "recommendation_category": "use_with_caution",
+      "score_modifier": -20,
+      "explanation_for_clinician": "Clozapine is reserved for treatment-resistant schizophrenia (after adequate trials of two antipsychotics) and requires mandatory blood-count monitoring; it is not a first-line choice.",
+      "monitoring_required": ["Mandatory ANC / blood-count monitoring per clozapine protocol."]
+    },
+    {
+      "rule_id": "IPS-SCZ-LAI-ADHERENCE",
+      "diagnosis": "schizophrenia",
+      "population": "any",
+      "condition": { "flags_any": ["non_adherence_risk"] },
+      "drug_or_drug_class": "Second-generation antipsychotic",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "Where adherence is a concern and a long-acting injectable formulation exists for the chosen agent, an LAI can support relapse prevention."
+    }
+  ]
+}

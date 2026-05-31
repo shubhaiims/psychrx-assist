@@ -1,0 +1,44 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Perinatal psychiatry (pregnancy and lactation)",
+  "citation_title": "IPS CPG: Perinatal / Women's Mental Health (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-PREG-VALPROATE-AVOID",
+      "diagnosis": "any",
+      "population": "pregnant",
+      "drug_or_drug_class": "Valproate",
+      "recommendation_category": "avoid",
+      "contraindication_level": "absolute",
+      "score_modifier": 0,
+      "explanation_for_clinician": "Valproate is contraindicated in pregnancy due to high teratogenic and neurodevelopmental risk; avoid except where all other options have failed and only under specialist supervision."
+    },
+    {
+      "rule_id": "IPS-PREG-SPECIALIST",
+      "diagnosis": "any",
+      "population": "pregnant",
+      "drug_or_drug_class": "any",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "Manage pregnancy jointly with perinatal psychiatry; weigh untreated maternal illness against medication risk, prefer agents with more reproductive-safety data, and use the lowest effective dose."
+    },
+    {
+      "rule_id": "IPS-LACT-PREFER-DATA",
+      "diagnosis": "any",
+      "population": "lactating",
+      "drug_or_drug_class": "any",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "During lactation, prefer agents with established infant-safety data, use the lowest effective dose, and monitor the infant for adverse effects."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Pharmacological management of OCD",
+  "citation_title": "IPS CPG: Obsessive-Compulsive Disorder (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-OCD-SSRI-FIRSTLINE",
+      "diagnosis": "ocd",
+      "population": "any",
+      "drug_or_drug_class": "SSRI",
+      "recommendation_category": "first_line",
+      "score_modifier": 8,
+      "explanation_for_clinician": "SSRIs are first-line for OCD, often at higher doses and longer trial durations than for depression; combine with exposure and response prevention (ERP).",
+      "monitoring_required": ["Assess response over an adequate (often extended) trial before judging efficacy."]
+    }
+  ]
+}

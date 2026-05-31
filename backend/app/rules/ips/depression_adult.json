@@ -1,0 +1,46 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Pharmacological management of depression",
+  "citation_title": "IPS CPG: Depression (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-MDD-SSRI-FIRSTLINE",
+      "diagnosis": "major_depressive_disorder",
+      "population": "adult",
+      "drug_or_drug_class": "SSRI",
+      "recommendation_category": "first_line",
+      "score_modifier": 8,
+      "explanation_for_clinician": "SSRIs are a recommended first-line pharmacological option for adult major depressive disorder; choose the specific agent by tolerability, interactions, and comorbidity.",
+      "monitoring_required": ["Review response and emergent suicidality/agitation early in treatment and after dose changes."]
+    },
+    {
+      "rule_id": "IPS-MDD-PSYCHOTIC-ANTIPSYCHOTIC",
+      "diagnosis": "major_depressive_disorder",
+      "population": "adult",
+      "condition": { "severity_in": ["severe_with_psychotic_features"] },
+      "drug_or_drug_class": "Second-generation antipsychotic",
+      "recommendation_category": "preferred",
+      "score_modifier": 6,
+      "explanation_for_clinician": "Depression with psychotic features: combine an antidepressant with an antipsychotic, or consider ECT, rather than antidepressant monotherapy."
+    },
+    {
+      "rule_id": "IPS-MDD-BASELINE-WORKUP",
+      "diagnosis": "major_depressive_disorder",
+      "population": "adult",
+      "drug_or_drug_class": "any",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "Complete a baseline physical-health assessment and document a psychosocial / psychotherapy plan alongside any medication.",
+      "missing_investigations": ["Baseline physical-health screen and relevant labs per local protocol before pharmacotherapy."]
+    }
+  ]
+}

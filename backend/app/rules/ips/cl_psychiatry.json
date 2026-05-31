@@ -1,0 +1,49 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Consultation-liaison psychiatry / the medically ill",
+  "citation_title": "IPS CPG: Consultation-Liaison Psychiatry (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-CL-QT-CARDIAC",
+      "diagnosis": "any",
+      "population": "any",
+      "condition": { "flags_any": ["cardiac_disease"], "drug_qt_risk_in": ["moderate", "high"] },
+      "drug_or_drug_class": "any",
+      "recommendation_category": "use_with_caution",
+      "score_modifier": -10,
+      "explanation_for_clinician": "In cardiac illness, QT-prolonging psychotropics need a baseline ECG/QTc, electrolyte correction, and cardiology input where appropriate.",
+      "missing_investigations": ["Baseline ECG/QTc; correct electrolytes before a QT-prolonging agent."],
+      "monitoring_required": ["ECG/QTc monitoring with QT-prolonging agents in cardiac illness."]
+    },
+    {
+      "rule_id": "IPS-CL-LITHIUM-RENAL",
+      "diagnosis": "any",
+      "population": "renal_impairment",
+      "drug_or_drug_class": "Lithium",
+      "recommendation_category": "use_with_caution",
+      "score_modifier": -15,
+      "explanation_for_clinician": "Lithium is renally cleared with a narrow therapeutic index; in renal impairment prefer specialist input and a renally safer alternative, with close level and renal-function monitoring.",
+      "missing_investigations": ["Renal function/eGFR before and during lithium."],
+      "monitoring_required": ["More frequent lithium levels and renal-function checks in renal impairment."]
+    },
+    {
+      "rule_id": "IPS-CL-VALPROATE-HEPATIC",
+      "diagnosis": "any",
+      "population": "hepatic_impairment",
+      "drug_or_drug_class": "Valproate",
+      "recommendation_category": "use_with_caution",
+      "score_modifier": -15,
+      "explanation_for_clinician": "Valproate is hepatotoxic; avoid or use only with specialist review and close LFT monitoring in hepatic impairment.",
+      "monitoring_required": ["Liver function monitoring before and during valproate."]
+    }
+  ]
+}

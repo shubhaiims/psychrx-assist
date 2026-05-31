@@ -1,0 +1,279 @@
+{
+  "DX-MATCH": {
+    "citation": "Local rule placeholder: diagnosis-to-drug-class indication per licensed formulary",
+    "source_type": "indication",
+    "status": "placeholder"
+  },
+  "POP-AGE-FIT": {
+    "citation": "Local rule placeholder: licensed age-group indication / paediatric-geriatric guideline",
+    "source_type": "population",
+    "status": "placeholder"
+  },
+  "POP-AGE-OFFLABEL": {
+    "citation": "Local rule placeholder: age group outside routine licensed population",
+    "source_type": "population",
+    "status": "placeholder"
+  },
+  "PREG-AVOID": {
+    "citation": "Local rule placeholder: pregnancy contraindication / teratogenicity reference",
+    "source_type": "pregnancy",
+    "status": "placeholder"
+  },
+  "PREG-SPECIALIST": {
+    "citation": "Local rule placeholder: perinatal psychiatry risk-benefit guidance",
+    "source_type": "pregnancy",
+    "status": "placeholder"
+  },
+  "PREG-PREFERRED": {
+    "citation": "Local rule placeholder: relatively preferred agent in pregnancy per perinatal guideline",
+    "source_type": "pregnancy",
+    "status": "placeholder"
+  },
+  "LACT-AVOID": {
+    "citation": "Local rule placeholder: lactation contraindication / infant-risk reference",
+    "source_type": "lactation",
+    "status": "placeholder"
+  },
+  "LACT-SPECIALIST": {
+    "citation": "Local rule placeholder: lactation risk-benefit guidance (e.g. LactMed)",
+    "source_type": "lactation",
+    "status": "placeholder"
+  },
+  "RENAL-AVOID": {
+    "citation": "Local rule placeholder: renal dosing / contraindication per renal drug handbook",
+    "source_type": "renal",
+    "status": "placeholder"
+  },
+  "RENAL-DOSEADJ": {
+    "citation": "Local rule placeholder: renal dose-adjustment per licensed monograph",
+    "source_type": "renal",
+    "status": "placeholder"
+  },
+  "HEPATIC-AVOID": {
+    "citation": "Local rule placeholder: hepatic contraindication / specialist dosing reference",
+    "source_type": "hepatic",
+    "status": "placeholder"
+  },
+  "HEPATIC-SLOWLOW": {
+    "citation": "Local rule placeholder: hepatic impairment start-low-go-slow guidance",
+    "source_type": "hepatic",
+    "status": "placeholder"
+  },
+  "QTC-HIGH-500": {
+    "citation": "Local rule placeholder: QTc >= 500 ms arrhythmia-risk / QT-prolonging-drug reference",
+    "source_type": "cardiac",
+    "status": "placeholder"
+  },
+  "QTC-HIGH-470": {
+    "citation": "Local rule placeholder: borderline QTc with high QT-risk agent reference",
+    "source_type": "cardiac",
+    "status": "placeholder"
+  },
+  "METAB-BMI": {
+    "citation": "Local rule placeholder: metabolic monitoring guidance for high-risk agents",
+    "source_type": "metabolic",
+    "status": "placeholder"
+  },
+  "METAB-COMORBID": {
+    "citation": "Local rule placeholder: metabolic-comorbidity caution for high-risk agents",
+    "source_type": "metabolic",
+    "status": "placeholder"
+  },
+  "PREF-SEDATION": {
+    "citation": "Local rule placeholder: patient-preference / shared-decision-making note",
+    "source_type": "preference",
+    "status": "placeholder"
+  },
+  "PREF-WEIGHT": {
+    "citation": "Local rule placeholder: patient-preference / shared-decision-making note",
+    "source_type": "preference",
+    "status": "placeholder"
+  },
+  "ADHERENCE-LAI": {
+    "citation": "Local rule placeholder: long-acting injectable in non-adherence guidance",
+    "source_type": "adherence",
+    "status": "placeholder"
+  },
+  "PASTRESP-GOOD": {
+    "citation": "Local rule placeholder: prior-response-guided selection principle",
+    "source_type": "history",
+    "status": "placeholder"
+  },
+  "PASTRESP-PARTIAL": {
+    "citation": "Local rule placeholder: prior-partial-response-guided selection principle",
+    "source_type": "history",
+    "status": "placeholder"
+  },
+  "PASTRESP-FAIL": {
+    "citation": "Local rule placeholder: prior-failure/intolerance avoidance principle",
+    "source_type": "history",
+    "status": "placeholder"
+  },
+  "PASTRESP-AE": {
+    "citation": "Local rule placeholder: documented prior adverse-effect avoidance",
+    "source_type": "history",
+    "status": "placeholder"
+  },
+  "SUICIDE-OD": {
+    "citation": "Local rule placeholder: overdose-toxicity / quantity-to-dispense guidance in suicide risk",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "BIP-AD-MONOTX": {
+    "citation": "Local rule placeholder: bipolar depression antidepressant-monotherapy caution (e.g. CANMAT/ISBD)",
+    "source_type": "diagnosis_specific",
+    "status": "placeholder"
+  },
+  "BIP-LITHIUM-FHX": {
+    "citation": "Local rule placeholder: family-history-of-lithium-response selection principle",
+    "source_type": "diagnosis_specific",
+    "status": "placeholder"
+  },
+  "MDD-SSRI-FIRSTLINE": {
+    "citation": "Local rule placeholder: first-line antidepressant guidance for MDD (e.g. NICE/APA depression guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "MDD-SGA-ADJUNCT": {
+    "citation": "Local rule placeholder: role of antipsychotics as augmentation in unipolar depression (depression guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "MDD-PSYCHOTIC-AUGMENT": {
+    "citation": "Local rule placeholder: management of depression with psychotic features (antipsychotic+antidepressant or ECT)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "BIP-LITHIUM-FIRSTLINE": {
+    "citation": "Local rule placeholder: lithium first-line for bipolar mania/maintenance and anti-suicidal evidence (bipolar guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "BIP-MANIA-ANTIPSYCHOTIC": {
+    "citation": "Local rule placeholder: second-generation antipsychotics first-line for acute mania (bipolar guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "BIP-LAMOTRIGINE": {
+    "citation": "Local rule placeholder: lamotrigine for bipolar depression/maintenance of depressive episodes (bipolar guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "PSY-CLOZAPINE-TRD": {
+    "citation": "Local rule placeholder: clozapine reserved for treatment-resistant schizophrenia with mandatory ANC monitoring (boxed warning / TRS guideline)",
+    "source_type": "boxed_warning",
+    "status": "placeholder"
+  },
+  "ANX-SSRI-FIRSTLINE": {
+    "citation": "Local rule placeholder: SSRIs first-line for anxiety/OCD spectrum (anxiety/OCD guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ADHD-STIMULANT-FIRSTLINE": {
+    "citation": "Local rule placeholder: stimulants first-line for ADHD (ADHD guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ADHD-STIMULANT-CARDIAC": {
+    "citation": "Local rule placeholder: cardiovascular assessment before stimulants (ADHD guideline / product label)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ADHD-STIMULANT-SUD": {
+    "citation": "Local rule placeholder: stimulant misuse/diversion risk in comorbid substance use (ADHD guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ADHD-ATOMOXETINE-ALT": {
+    "citation": "Local rule placeholder: atomoxetine as non-stimulant alternative (ADHD guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SUD-NALTREXONE-OPIOID-FREE": {
+    "citation": "Local rule placeholder: opioid-free interval required before naltrexone to avoid precipitated withdrawal (product label / addiction guideline)",
+    "source_type": "drug_reference",
+    "status": "placeholder"
+  },
+  "PREG-VALPROATE": {
+    "citation": "Local rule placeholder: valproate teratogenic/neurodevelopmental risk; avoid in pregnancy and childbearing potential (regulatory restriction / perinatal guideline)",
+    "source_type": "regulatory",
+    "status": "placeholder"
+  },
+  "PED-AD-SUICIDALITY": {
+    "citation": "Local rule placeholder: antidepressant boxed warning for suicidality in patients <25 (FDA boxed warning)",
+    "source_type": "boxed_warning",
+    "status": "placeholder"
+  },
+  "PED-ATOMOXETINE-SUICIDALITY": {
+    "citation": "Local rule placeholder: atomoxetine boxed warning for suicidal ideation in children/adolescents (FDA boxed warning)",
+    "source_type": "boxed_warning",
+    "status": "placeholder"
+  },
+  "GERI-ANTIPSYCHOTIC-DEMENTIA": {
+    "citation": "Local rule placeholder: antipsychotic boxed warning for increased mortality/CVA in elderly dementia (FDA boxed warning)",
+    "source_type": "boxed_warning",
+    "status": "placeholder"
+  },
+  "GERI-ANTIPSYCHOTIC-ELDERLY": {
+    "citation": "Local rule placeholder: cautious antipsychotic use in older adults (geriatric prescribing guidance)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GERI-SEDATION-FALLS": {
+    "citation": "Local rule placeholder: sedation/fall risk with sedating agents in older adults (Beers/STOPP criteria)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "RENAL-SEVERE": {
+    "citation": "Local rule placeholder: dose reduction/avoidance of renally-cleared psychotropics in severe renal impairment (renal dosing reference)",
+    "source_type": "drug_reference",
+    "status": "placeholder"
+  },
+  "HEPATIC-VALPROATE": {
+    "citation": "Local rule placeholder: valproate hepatotoxicity; caution/avoid in hepatic impairment (product label)",
+    "source_type": "drug_reference",
+    "status": "placeholder"
+  },
+  "CARDIAC-QT-ILLNESS": {
+    "citation": "Local rule placeholder: QT-prolonging agents in cardiac illness need ECG/electrolyte review (cardiac safety guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SEIZURE-CLOZAPINE": {
+    "citation": "Local rule placeholder: clozapine dose-dependent seizure-threshold lowering (product label)",
+    "source_type": "drug_reference",
+    "status": "placeholder"
+  },
+  "SUICIDE-OD-GRADED": {
+    "citation": "Local rule placeholder: limited dispensing/means restriction in active suicidality (suicide prevention guideline)",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "DDI-LITHIUM-LEVEL": {
+    "citation": "Local rule placeholder: NSAIDs/ACEi/ARB/thiazide raise lithium levels (interaction reference)",
+    "source_type": "drug_interaction",
+    "status": "placeholder"
+  },
+  "DDI-CLOZAPINE-MARROW": {
+    "citation": "Local rule placeholder: additive myelosuppression with clozapine + carbamazepine (interaction reference)",
+    "source_type": "drug_interaction",
+    "status": "placeholder"
+  },
+  "DDI-SEROTONIN-MAOI": {
+    "citation": "Local rule placeholder: SSRI + MAOI/linezolid serotonin syndrome, contraindicated without washout (interaction reference)",
+    "source_type": "drug_interaction",
+    "status": "placeholder"
+  },
+  "DDI-SEROTONIN-OTHER": {
+    "citation": "Local rule placeholder: additive serotonergic risk with tramadol/triptans/St John's wort (interaction reference)",
+    "source_type": "drug_interaction",
+    "status": "placeholder"
+  },
+  "_meta": {
+    "description": "Maps each rule_id used by the engine to its supporting citation. Every entry is a PLACEHOLDER until a psychiatrist replaces it with a real, licensed guideline / drug-reference citation. The engine never invents citations; an unmapped rule simply carries no reference.",
+    "status_legend": {
+      "placeholder": "Needs a real citation before clinical use.",
+      "verified": "Citation reviewed and approved by a named clinician."
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Pharmacological management of anxiety disorders",
+  "citation_title": "IPS CPG: Anxiety Disorders (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-ANX-SSRI-FIRSTLINE",
+      "diagnosis": ["generalized_anxiety_disorder", "panic_disorder"],
+      "population": "any",
+      "drug_or_drug_class": "SSRI",
+      "recommendation_category": "first_line",
+      "score_modifier": 8,
+      "explanation_for_clinician": "SSRIs are first-line pharmacotherapy for generalized anxiety disorder and panic disorder; CBT is an effective first-line alternative or adjunct."
+    },
+    {
+      "rule_id": "IPS-PANIC-STARTLOW",
+      "diagnosis": "panic_disorder",
+      "population": "any",
+      "drug_or_drug_class": "SSRI",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "In panic disorder, begin SSRIs at a low dose to limit initial activation/jitteriness, then titrate.",
+      "monitoring_required": ["Start low and titrate; review early-treatment activation."]
+    }
+  ]
+}

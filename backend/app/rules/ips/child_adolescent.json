@@ -1,0 +1,44 @@
+{
+  "guideline_name": "Indian Psychiatric Society Clinical Practice Guidelines (verify exact guideline/edition)",
+  "guideline_section": "Prescribing in children and adolescents",
+  "citation_title": "IPS CPG: Child & Adolescent Psychiatry (verify exact title)",
+  "citation_page": "TBD",
+  "citation_url": "https://indianpsychiatricsociety.org/clinical-practice-guidelines/ (add exact link)",
+  "citation_year": null,
+  "last_reviewed_by": "PLACEHOLDER - not yet reviewed; verify against source and sign off",
+  "last_reviewed_date": null,
+  "condition": null,
+  "missing_investigations": [],
+  "monitoring_required": [],
+  "contraindication_level": "none",
+  "rules": [
+    {
+      "rule_id": "IPS-CAP-AD-SUICIDALITY",
+      "diagnosis": "any",
+      "population": "child_adolescent",
+      "drug_or_drug_class": "SSRI",
+      "recommendation_category": "use_with_caution",
+      "score_modifier": -10,
+      "explanation_for_clinician": "Antidepressants carry a boxed warning for increased suicidality in patients under 25; if used, start with close monitoring and safety planning.",
+      "monitoring_required": ["Close monitoring for emergent suicidality, especially early in treatment and after dose changes."]
+    },
+    {
+      "rule_id": "IPS-CAP-ATOMOXETINE-SUICIDALITY",
+      "diagnosis": "adhd",
+      "population": "child_adolescent",
+      "drug_or_drug_class": "Atomoxetine",
+      "recommendation_category": "use_with_caution",
+      "score_modifier": -8,
+      "explanation_for_clinician": "Atomoxetine carries a boxed warning for suicidal ideation in children/adolescents; monitor mood after initiation and dose changes."
+    },
+    {
+      "rule_id": "IPS-CAP-SPECIALIST",
+      "diagnosis": "any",
+      "population": "child_adolescent",
+      "drug_or_drug_class": "any",
+      "recommendation_category": "informational",
+      "score_modifier": 0,
+      "explanation_for_clinician": "Paediatric psychotropic prescribing generally warrants child-and-adolescent psychiatry involvement; fewer agents are licensed and dosing differs."
+    }
+  ]
+}
