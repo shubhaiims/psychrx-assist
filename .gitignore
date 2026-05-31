@@ -25,6 +25,8 @@ build/
 .turbo/
 *.tsbuildinfo
 next-env.d.ts
+*-dev.log
+*-dev.err.log
 # package manager logs
 npm-debug.log*
 yarn-debug.log*
