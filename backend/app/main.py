@@ -19,6 +19,12 @@ def parse_cors_origins() -> tuple[list[str], bool]:
         return origins, False
     return origins, True
 
+
+def rule_store_is_read_only() -> bool:
+    if os.getenv("RULE_STORE_READ_ONLY", "").strip().lower() in {"1", "true", "yes", "on"}:
+        return True
+    return bool(os.getenv("VERCEL"))
+
 app = FastAPI(
     title="PsychRx Assist API",
     description="Clinician-facing psychiatry medication decision-support starter API.",
@@ -97,6 +103,11 @@ def list_rules(
 @app.post("/rules", status_code=201)
 def create_rule(rule: IpsRuleModel, file: str | None = Query(default=None)):
     """Create a new rule. Writes to custom_rules.json by default, or ?file=<name>.json."""
+    if rule_store_is_read_only():
+        raise HTTPException(
+            status_code=503,
+            detail="Rule editing is disabled in this deployment because the rule store is read-only.",
+        )
     try:
         return rule_store.create_rule(rule.model_dump(), target_file=file)
     except rule_store.RuleConflict as exc:
@@ -115,6 +126,11 @@ def get_rule(rule_id: str):
 
 @app.put("/rules/{rule_id}")
 def update_rule(rule_id: str, rule: IpsRuleModel):
+    if rule_store_is_read_only():
+        raise HTTPException(
+            status_code=503,
+            detail="Rule editing is disabled in this deployment because the rule store is read-only.",
+        )
     try:
         return rule_store.update_rule(rule_id, rule.model_dump())
     except rule_store.RuleNotFound:
@@ -125,6 +141,11 @@ def update_rule(rule_id: str, rule: IpsRuleModel):
 
 @app.patch("/rules/{rule_id}/disable")
 def disable_rule(rule_id: str):
+    if rule_store_is_read_only():
+        raise HTTPException(
+            status_code=503,
+            detail="Rule editing is disabled in this deployment because the rule store is read-only.",
+        )
     try:
         return rule_store.set_enabled(rule_id, False)
     except rule_store.RuleNotFound:
@@ -134,6 +155,11 @@ def disable_rule(rule_id: str):
 @app.patch("/rules/{rule_id}/enable")
 def enable_rule(rule_id: str):
     """Re-enable a previously disabled rule (companion to /disable for the editor toggle)."""
+    if rule_store_is_read_only():
+        raise HTTPException(
+            status_code=503,
+            detail="Rule editing is disabled in this deployment because the rule store is read-only.",
+        )
     try:
         return rule_store.set_enabled(rule_id, True)
     except rule_store.RuleNotFound:
