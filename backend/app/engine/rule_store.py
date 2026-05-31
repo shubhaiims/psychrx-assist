@@ -21,7 +21,7 @@ import json
 import os
 from typing import Any, Dict, List, Optional
 
-from app.engine import ips_rules
+from app.engine import ips_rules, rule_overrides
 from app.engine.ips_rules import _as_list  # noqa: PLC2701  (internal helper reuse)
 from app.engine.utils import normalise
 
@@ -129,6 +129,10 @@ def list_problems() -> List[str]:
     return ips_rules.ips_rule_problems()
 
 
+def has_persistent_store() -> bool:
+    return rule_overrides.is_enabled()
+
+
 # --------------------------------------------------------------------------- #
 # writes                                                                      #
 # --------------------------------------------------------------------------- #
@@ -143,6 +147,14 @@ def create_rule(rule: Dict[str, Any], target_file: Optional[str] = None) -> Dict
     errs = ips_rules._validate_rule(dict(clean))
     if errs:
         raise RuleInvalid(errs)
+
+    if has_persistent_store():
+        rule_overrides.save_rule(clean, _safe_file(target_file or DEFAULT_TARGET_FILE))
+        ips_rules.reload()
+        created = get_rule(rid)
+        if created is None:
+            raise RuleStoreError(f"created rule '{rid}' could not be reloaded")
+        return created
 
     path = os.path.join(_rules_dir(), _safe_file(target_file or DEFAULT_TARGET_FILE))
     data = _read_raw(path) if os.path.exists(path) else {"rules": []}
@@ -162,6 +174,15 @@ def update_rule(rule_id: str, rule: Dict[str, Any]) -> Dict[str, Any]:
     if errs:
         raise RuleInvalid(errs)
 
+    if has_persistent_store():
+        source_file = existing.get("_source_file") or DEFAULT_TARGET_FILE
+        rule_overrides.save_rule(clean, source_file)
+        ips_rules.reload()
+        updated = get_rule(rule_id)
+        if updated is None:
+            raise RuleStoreError(f"updated rule '{rule_id}' could not be reloaded")
+        return updated
+
     path = os.path.join(_rules_dir(), existing["_source_file"])
     data = _read_raw(path)
     lst = _rules_list(data)
@@ -180,6 +201,16 @@ def set_enabled(rule_id: str, enabled: bool) -> Dict[str, Any]:
     existing = get_rule(rule_id)
     if existing is None:
         raise RuleNotFound(rule_id)
+
+    if has_persistent_store():
+        updated = _clean(existing)
+        updated["enabled"] = bool(enabled)
+        rule_overrides.save_rule(updated, existing.get("_source_file") or DEFAULT_TARGET_FILE)
+        ips_rules.reload()
+        out = get_rule(rule_id)
+        if out is None:
+            raise RuleStoreError(f"updated rule '{rule_id}' could not be reloaded")
+        return out
     path = os.path.join(_rules_dir(), existing["_source_file"])
     data = _read_raw(path)
     for entry in _rules_list(data):

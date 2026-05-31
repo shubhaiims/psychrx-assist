@@ -27,6 +27,7 @@ from functools import lru_cache
 from typing import Any, Dict, List, Optional, Tuple
 
 from app.engine.context import PatientContext
+from app.engine import rule_overrides
 from app.engine.scoring import ScoreCard
 from app.engine.utils import has_any, normalise
 
@@ -188,7 +189,25 @@ def _load_raw() -> Tuple[Tuple[Dict[str, Any], ...], Tuple[str, ...]]:
             merged["_source_file"] = base
             merged["enabled"] = bool(merged.get("enabled", True))
             rules.append(merged)
-    return tuple(rules), tuple(problems)
+
+    ordered_ids = [r["rule_id"] for r in rules]
+    by_id = {r["rule_id"]: r for r in rules}
+
+    problems.extend(rule_overrides.load_problems())
+    for override in rule_overrides.load_overrides():
+        rid = override.get("rule_id", "?")
+        errs = _validate_rule(override)
+        if errs:
+            problems.extend(f"database[{rid}]: {e}" for e in errs)
+            continue
+        merged = dict(override)
+        merged["_source_file"] = merged.get("_source_file") or "database"
+        merged["enabled"] = bool(merged.get("enabled", True))
+        if rid not in by_id:
+            ordered_ids.append(rid)
+        by_id[rid] = merged
+
+    return tuple(by_id[rid] for rid in ordered_ids), tuple(problems)
 
 
 def load_ips_rules() -> List[Dict[str, Any]]:
@@ -204,6 +223,7 @@ def ips_rule_problems() -> List[str]:
 def reload() -> None:
     """Clear the cache so newly added/edited JSON files are picked up."""
     _load_raw.cache_clear()
+    rule_overrides.reload()
 
 
 # --------------------------------------------------------------------------- #

@@ -1,9 +1,27 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: "PsychRx Assist — Clinical Decision Support",
-  description: "Psychiatry prescribing decision-support for clinicians",
+  metadataBase: siteUrl,
+  title: "PsychRx Assist - Structured Psychiatry Prescribing Assessments",
+  description:
+    "Clinician-facing psychiatry prescribing decision support with transparent rule logic, monitoring prompts, and guideline-linked explanations.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "PsychRx Assist",
+    description: "Structured psychiatry prescribing assessments for qualified clinicians.",
+    url: siteUrl,
+    siteName: "PsychRx Assist",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -27,6 +45,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

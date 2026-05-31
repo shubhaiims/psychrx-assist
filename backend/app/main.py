@@ -2,11 +2,14 @@ import os
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from app.monitoring import init_sentry
 from app.models import PatientProfile, RecommendationReport, RecommendationResponse, IpsRuleModel
 from app.engine.presentation import build_report
 from app.engine.ips_rules import load_ips_rules, ips_rule_problems, reload as reload_ips_rules
 from app.engine import rule_store
 from app.rules_engine import generate_recommendations
+
+init_sentry()
 
 
 def parse_cors_origins() -> tuple[list[str], bool]:
@@ -23,7 +26,7 @@ def parse_cors_origins() -> tuple[list[str], bool]:
 def rule_store_is_read_only() -> bool:
     if os.getenv("RULE_STORE_READ_ONLY", "").strip().lower() in {"1", "true", "yes", "on"}:
         return True
-    return bool(os.getenv("VERCEL"))
+    return bool(os.getenv("VERCEL")) and not rule_store.has_persistent_store()
 
 app = FastAPI(
     title="PsychRx Assist API",
