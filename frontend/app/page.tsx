@@ -257,7 +257,7 @@ export default function Assessment() {
       <main className="container">
         <section className="safetyGate" aria-labelledby="safety-title">
           <div className="gateBadge">Clinician safety gate</div>
-          <h1 id="safety-title">PsychRx Assist is for qualified clinicians only</h1>
+          <h1 id="safety-title">PsychRx Support is for qualified clinicians only</h1>
           <p className="gateLead">
             This website supports structured prescribing decisions, but it does not generate
             prescriptions and must not replace clinical judgement, supervision, consent,
@@ -311,47 +311,6 @@ export default function Assessment() {
 
   return (
     <main className="container">
-      <section className="heroBanner" aria-labelledby="hero-title">
-        <div className="heroCopy">
-          <span className="eyebrow">Clinician decision support</span>
-          <h1 id="hero-title">Structured psychiatry prescribing assessments with transparent rule logic</h1>
-          <p className="heroLead">
-            PsychRx Assist turns a complex prescribing profile into a clear, reviewable
-            assessment with ranked options, red-flag visibility, and guideline-linked
-            reasoning that clinicians can inspect before acting.
-          </p>
-          <div className="heroActions">
-            <a className="heroPrimary" href="#assessment-form">Start an assessment</a>
-            <a className="heroSecondary" href="/admin/rules">Open the rule library</a>
-          </div>
-        </div>
-        <div className="heroSummary">
-          <span className="summaryKicker">Designed for clinical review</span>
-          <ul className="heroList">
-            <li>Deterministic rule engine with visible rationale for each recommendation.</li>
-            <li>Safety gate, investigation prompts, and monitoring requirements in one workflow.</li>
-            <li>Rule administration can persist to Postgres when deployed with a database.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section className="trustGrid" aria-label="Platform highlights">
-        <article className="trustCard">
-          <span className="trustValue">619</span>
-          <h2>Backend tests already in place</h2>
-          <p>The decision engine ships with a strong pytest suite so changes can be checked before release.</p>
-        </article>
-        <article className="trustCard">
-          <span className="trustValue">JSON + DB</span>
-          <h2>Flexible rule storage</h2>
-          <p>Baseline IPS rules stay versioned in the repo, while live overrides can persist in Postgres.</p>
-        </article>
-        <article className="trustCard">
-          <span className="trustValue">Live visibility</span>
-          <h2>Built for production feedback</h2>
-          <p>Vercel Analytics, Speed Insights, and Sentry hooks are ready for live deployments.</p>
-        </article>
-      </section>
       <div className="pageHead">
         <h1 id="assessment-form">Prescribing assessment</h1>
         <p className="subtle">
@@ -360,30 +319,6 @@ export default function Assessment() {
           for patient self-treatment.
         </p>
       </div>
-
-      <section className="workflowBand" aria-label="Assessment workflow">
-        <article className="workflowStep">
-          <span className="sectionNum">1</span>
-          <div>
-            <h2>Capture the clinical picture</h2>
-            <p>Document diagnosis, risks, physiology, investigations, and treatment history.</p>
-          </div>
-        </article>
-        <article className="workflowStep">
-          <span className="sectionNum">2</span>
-          <div>
-            <h2>Generate a ranked assessment</h2>
-            <p>Review suitability bands, missing investigations, and safety modifiers instantly.</p>
-          </div>
-        </article>
-        <article className="workflowStep">
-          <span className="sectionNum">3</span>
-          <div>
-            <h2>Inspect the underlying logic</h2>
-            <p>Open the rule library to audit citations, review status, and live rule behavior.</p>
-          </div>
-        </article>
-      </section>
 
       {/* 1. Patient profile */}
       <section className="formSection">
