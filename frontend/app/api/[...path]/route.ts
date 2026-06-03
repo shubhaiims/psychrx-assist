@@ -53,7 +53,7 @@ async function proxyRequest(request: NextRequest, context: RouteContext) {
     const response = await fetch(targetUrl, init);
     const responseContentType = response.headers.get("content-type");
 
-    if (!response.ok && responseContentType?.includes("text/html")) {
+    if (!response.ok && responseContentType?.startsWith("text/")) {
       const text = await response.text();
       if (text.includes("DEPLOYMENT_NOT_FOUND")) {
         return NextResponse.json(
