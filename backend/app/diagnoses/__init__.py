@@ -6,12 +6,15 @@ all submodules are loaded we assert the registry covers the ``Diagnosis`` enum
 exactly, so a missing or stray module is caught at startup rather than at the
 bedside.
 
-To add a new diagnosis: add the value to the ``Diagnosis`` enum in models.py,
-create a ``<diagnosis>.py`` module here that builds and ``register(...)``s a
-module, and add it to the import list below. The startup check will tell you if
-anything is inconsistent.
+Detailed modules are imported below. Remaining ICD-11 catalogue entries are
+registered as conservative generic modules: they validate, show the selected
+diagnosis, and run shared safety checks without inventing medication candidates.
 """
 from __future__ import annotations
+
+from app.diagnosis_catalog import DIAGNOSIS_OPTIONS
+from app.engine.base import DiagnosisRuleModule
+from app.engine.registry import all_modules, register
 
 # Importing each module runs its register(...) call. Order does not affect
 # behaviour (the engine selects candidates by indication and sorts
@@ -46,6 +49,17 @@ from app.diagnoses import opioid_use_disorder  # noqa: F401
 from app.diagnoses import dementia_related_behavioural_symptoms  # noqa: F401
 
 from app.engine.registry import assert_registry_complete
+
+
+def _register_generic_catalogue_modules() -> None:
+    registered = all_modules()
+    for diagnosis, display_name in DIAGNOSIS_OPTIONS:
+        if diagnosis not in registered:
+            register(DiagnosisRuleModule(diagnosis=diagnosis, display_name=display_name))
+            registered[diagnosis] = all_modules()[diagnosis]
+
+
+_register_generic_catalogue_modules()
 
 # Fail fast if the Diagnosis enum and the registered modules have drifted apart.
 assert_registry_complete()

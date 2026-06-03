@@ -1,17 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { DIAGNOSES as DIAGNOSIS_OPTIONS } from "@/lib/diagnosisCatalog";
 import type { IpsRule, RulesListResponse } from "@/lib/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
 const ADMIN_TOKEN_KEY = "psychrx_admin_token_v1";
 
-const DIAGNOSES = [
-  "any", "major_depressive_disorder", "bipolar_mania", "bipolar_depression",
-  "bipolar_maintenance", "schizophrenia", "acute_psychosis", "ocd",
-  "generalized_anxiety_disorder", "panic_disorder", "ptsd", "adhd",
-  "alcohol_use_disorder", "opioid_use_disorder", "dementia_related_behavioural_symptoms",
-];
+const DIAGNOSES = [["any", "Any"], ...DIAGNOSIS_OPTIONS] as const;
 const POPULATIONS = [
   "any", "adult", "child", "adolescent", "child_adolescent", "elderly", "pregnant",
   "lactating", "childbearing_potential", "renal_impairment", "hepatic_impairment",
@@ -330,7 +326,7 @@ export default function AdminRules() {
               <label>Filter by diagnosis</label>
               <select value={fDiagnosis} onChange={(e) => setFDiagnosis(e.target.value)}>
                 <option value="all">All diagnoses</option>
-                {DIAGNOSES.map((d) => <option key={d} value={d}>{d}</option>)}
+                {DIAGNOSES.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
               </select>
             </div>
             <div>

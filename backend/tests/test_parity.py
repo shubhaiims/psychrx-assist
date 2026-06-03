@@ -265,7 +265,7 @@ def random_profiles(n: int, seed: int = 1729) -> Iterator[PatientProfile]:
 def test_registry_is_complete():
     assert_registry_complete()  # raises if enum and modules disagree
     assert set(all_modules()) == set(ALL_DIAGNOSES)
-    assert len(all_modules()) == 14
+    assert len(all_modules()) == len(ALL_DIAGNOSES)
 
 
 @pytest.mark.parametrize("profile", list(structured_profiles()))

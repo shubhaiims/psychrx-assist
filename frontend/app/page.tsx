@@ -1,26 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DIAGNOSES as CATALOG_DIAGNOSES } from "@/lib/diagnosisCatalog";
 import type { RecommendationReport, DrugOption, GuidelineReference } from "@/lib/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
-
-const DIAGNOSES: [string, string][] = [
-  ["major_depressive_disorder", "Major depressive disorder"],
-  ["bipolar_mania", "Bipolar disorder — mania"],
-  ["bipolar_depression", "Bipolar disorder — depression"],
-  ["bipolar_maintenance", "Bipolar disorder — maintenance"],
-  ["schizophrenia", "Schizophrenia"],
-  ["acute_psychosis", "Acute psychosis"],
-  ["ocd", "Obsessive-compulsive disorder"],
-  ["generalized_anxiety_disorder", "Generalized anxiety disorder"],
-  ["panic_disorder", "Panic disorder"],
-  ["ptsd", "Post-traumatic stress disorder"],
-  ["adhd", "ADHD"],
-  ["alcohol_use_disorder", "Alcohol use disorder"],
-  ["opioid_use_disorder", "Opioid use disorder"],
-  ["dementia_related_behavioural_symptoms", "Behavioural symptoms in dementia"],
-];
 
 const SYMPTOMS: [string, string][] = [
   ["psychotic", "Psychotic features"], ["manic", "Manic features"],
@@ -375,7 +359,7 @@ export default function Assessment() {
           <div className="fieldGrid">
             <div className="field wide"><label>Primary diagnosis</label>
               <select value={f.diagnosis} onChange={(e) => set("diagnosis", e.target.value)}>
-                {DIAGNOSES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                {CATALOG_DIAGNOSES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
               </select></div>
             <div className="field"><label>Subtype / specifier (optional)</label>
               <input type="text" value={f.diagnosis_subtype} placeholder="e.g. treatment-resistant, first episode"

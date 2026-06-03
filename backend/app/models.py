@@ -2,6 +2,8 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Field, computed_field
 
+from app.diagnosis_catalog import DIAGNOSIS_OPTIONS
+
 
 class Sex(str, Enum):
     male = "male"
@@ -43,21 +45,12 @@ class HepaticStatus(str, Enum):
     unknown = "unknown"
 
 
-class Diagnosis(str, Enum):
-    major_depressive_disorder = "major_depressive_disorder"
-    bipolar_mania = "bipolar_mania"
-    bipolar_depression = "bipolar_depression"
-    bipolar_maintenance = "bipolar_maintenance"
-    schizophrenia = "schizophrenia"
-    acute_psychosis = "acute_psychosis"
-    ocd = "ocd"
-    generalized_anxiety_disorder = "generalized_anxiety_disorder"
-    panic_disorder = "panic_disorder"
-    ptsd = "ptsd"
-    adhd = "adhd"
-    alcohol_use_disorder = "alcohol_use_disorder"
-    opioid_use_disorder = "opioid_use_disorder"
-    dementia_related_behavioural_symptoms = "dementia_related_behavioural_symptoms"
+Diagnosis = Enum(
+    "Diagnosis",
+    {value: value for value, _label in DIAGNOSIS_OPTIONS},
+    type=str,
+    module=__name__,
+)
 
 
 class Severity(str, Enum):
