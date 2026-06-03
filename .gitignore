@@ -20,6 +20,7 @@ ENV/
 node_modules/
 .npm-cache/
 .vercel-cli/
+.runtime/
 .next/
 out/
 build/

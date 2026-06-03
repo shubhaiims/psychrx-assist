@@ -1,6 +1,7 @@
+import secrets
 import os
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, Header, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from app.monitoring import init_sentry
 from app.models import PatientProfile, RecommendationReport, RecommendationResponse, IpsRuleModel
@@ -27,6 +28,19 @@ def rule_store_is_read_only() -> bool:
     if os.getenv("RULE_STORE_READ_ONLY", "").strip().lower() in {"1", "true", "yes", "on"}:
         return True
     return bool(os.getenv("VERCEL")) and not rule_store.has_persistent_store()
+
+
+def configured_admin_token() -> str:
+    return os.getenv("ADMIN_AUTH_TOKEN", "").strip()
+
+
+def require_admin_token(x_admin_token: str | None = Header(default=None)) -> None:
+    token = configured_admin_token()
+    if not token:
+        return
+    if not x_admin_token or not secrets.compare_digest(x_admin_token, token):
+        raise HTTPException(status_code=401, detail="Admin token required for rule editing.")
+
 
 app = FastAPI(
     title="PsychRx Assist API",
@@ -82,6 +96,15 @@ def ips_rules_health(reload: bool = False):
     }
 
 
+@app.get("/rules/store/status")
+def rule_store_status():
+    return {
+        "persistent": rule_store.has_persistent_store(),
+        "read_only": rule_store_is_read_only(),
+        "admin_token_required": bool(configured_admin_token()),
+    }
+
+
 # --------------------------------------------------------------------------- #
 # Admin rule editor API (CRUD over the JSON rule store)                       #
 # --------------------------------------------------------------------------- #
@@ -104,7 +127,11 @@ def list_rules(
 
 
 @app.post("/rules", status_code=201)
-def create_rule(rule: IpsRuleModel, file: str | None = Query(default=None)):
+def create_rule(
+    rule: IpsRuleModel,
+    file: str | None = Query(default=None),
+    _: None = Depends(require_admin_token),
+):
     """Create a new rule. Writes to custom_rules.json by default, or ?file=<name>.json."""
     if rule_store_is_read_only():
         raise HTTPException(
@@ -128,7 +155,7 @@ def get_rule(rule_id: str):
 
 
 @app.put("/rules/{rule_id}")
-def update_rule(rule_id: str, rule: IpsRuleModel):
+def update_rule(rule_id: str, rule: IpsRuleModel, _: None = Depends(require_admin_token)):
     if rule_store_is_read_only():
         raise HTTPException(
             status_code=503,
@@ -143,7 +170,7 @@ def update_rule(rule_id: str, rule: IpsRuleModel):
 
 
 @app.patch("/rules/{rule_id}/disable")
-def disable_rule(rule_id: str):
+def disable_rule(rule_id: str, _: None = Depends(require_admin_token)):
     if rule_store_is_read_only():
         raise HTTPException(
             status_code=503,
@@ -156,7 +183,7 @@ def disable_rule(rule_id: str):
 
 
 @app.patch("/rules/{rule_id}/enable")
-def enable_rule(rule_id: str):
+def enable_rule(rule_id: str, _: None = Depends(require_admin_token)):
     """Re-enable a previously disabled rule (companion to /disable for the editor toggle)."""
     if rule_store_is_read_only():
         raise HTTPException(

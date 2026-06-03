@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { IpsRule, RulesListResponse } from "@/lib/types";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
+const ADMIN_TOKEN_KEY = "psychrx_admin_token_v1";
 
 const DIAGNOSES = [
   "any", "major_depressive_disorder", "bipolar_mania", "bipolar_depression",
@@ -139,8 +140,14 @@ const matchTok = (field: string | string[] | undefined, want: string): boolean =
 export default function AdminRules() {
   const [rules, setRules] = useState<IpsRule[]>([]);
   const [problems, setProblems] = useState<string[]>([]);
+  const [storeStatus, setStoreStatus] = useState<{
+    persistent: boolean;
+    read_only: boolean;
+    admin_token_required: boolean;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [adminToken, setAdminToken] = useState("");
 
   const [fDiagnosis, setFDiagnosis] = useState("all");
   const [fPopulation, setFPopulation] = useState("all");
@@ -154,11 +161,17 @@ export default function AdminRules() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_BASE}/rules`);
+      const [res, statusRes] = await Promise.all([
+        fetch(`${API_BASE}/rules`),
+        fetch(`${API_BASE}/rules/store/status`).catch(() => null),
+      ]);
       if (!res.ok) throw new Error(await res.text());
       const data = (await res.json()) as RulesListResponse;
       setRules(data.rules);
       setProblems(data.problems);
+      if (statusRes?.ok) {
+        setStoreStatus(await statusRes.json());
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load rules");
     } finally {
@@ -167,8 +180,32 @@ export default function AdminRules() {
   }
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setAdminToken(window.localStorage.getItem(ADMIN_TOKEN_KEY) ?? "");
+    }
     load();
   }, []);
+
+  function updateAdminToken(value: string) {
+    setAdminToken(value);
+    if (typeof window === "undefined") return;
+    if (value.trim()) {
+      window.localStorage.setItem(ADMIN_TOKEN_KEY, value);
+    } else {
+      window.localStorage.removeItem(ADMIN_TOKEN_KEY);
+    }
+  }
+
+  function requestHeaders(hasJson = false): HeadersInit {
+    const headers: Record<string, string> = {};
+    if (hasJson) {
+      headers["Content-Type"] = "application/json";
+    }
+    if (adminToken.trim()) {
+      headers["X-Admin-Token"] = adminToken.trim();
+    }
+    return headers;
+  }
 
   const filtered = useMemo(
     () => rules.filter((r) => matchTok(r.diagnosis, fDiagnosis) && matchTok(r.population, fPopulation)),
@@ -206,7 +243,7 @@ export default function AdminRules() {
       const url = isNew ? `${API_BASE}/rules` : `${API_BASE}/rules/${encodeURIComponent(rule.rule_id)}`;
       const res = await fetch(url, {
         method: isNew ? "POST" : "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: requestHeaders(true),
         body: JSON.stringify(rule),
       });
       if (!res.ok) {
@@ -225,7 +262,10 @@ export default function AdminRules() {
   async function toggleEnabled(r: IpsRule) {
     const action = r.enabled === false ? "enable" : "disable";
     try {
-      const res = await fetch(`${API_BASE}/rules/${encodeURIComponent(r.rule_id)}/${action}`, { method: "PATCH" });
+      const res = await fetch(`${API_BASE}/rules/${encodeURIComponent(r.rule_id)}/${action}`, {
+        method: "PATCH",
+        headers: requestHeaders(),
+      });
       if (!res.ok) throw new Error(await res.text());
       await load();
     } catch (e) {
@@ -247,6 +287,33 @@ export default function AdminRules() {
       <section className="warning">
         Rules are clinical content. Verify each rule against the source guideline and set a
         reviewer name and date before relying on it. Saving here changes live behaviour.
+      </section>
+
+      <section className="panel">
+        <div className="toolbar">
+          <div>
+            <h2>Cloud rule store</h2>
+            <p className="muted small">
+              {storeStatus
+                ? storeStatus.persistent
+                  ? "Persistent database storage is active."
+                  : "Persistent database storage is not active."
+                : "Checking storage mode..."}
+              {storeStatus?.read_only ? " Rule editing is currently read-only." : ""}
+            </p>
+          </div>
+          <div className="filters">
+            <div>
+              <label>Admin token</label>
+              <input
+                type="password"
+                value={adminToken}
+                onChange={(e) => updateAdminToken(e.target.value)}
+                placeholder={storeStatus?.admin_token_required ? "Required for edits" : "Optional unless backend requires it"}
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       {problems.length > 0 && (

@@ -117,6 +117,15 @@ def test_create_invalid_unprocessable(client):
     assert r2.status_code == 422
 
 
+def test_create_rule_requires_admin_token_when_configured(client, monkeypatch):
+    monkeypatch.setenv("ADMIN_AUTH_TOKEN", "test-secret")
+
+    assert client.post("/rules", json=_new_rule()).status_code == 401
+
+    r = client.post("/rules", json=_new_rule(), headers={"X-Admin-Token": "test-secret"})
+    assert r.status_code == 201
+
+
 # --------------------------------------------------------------------------- #
 # update                                                                      #
 # --------------------------------------------------------------------------- #
