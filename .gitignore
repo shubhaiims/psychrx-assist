@@ -19,6 +19,7 @@ ENV/
 # ---- Node / Next.js (frontend) ----
 node_modules/
 .npm-cache/
+.vercel-cli/
 .next/
 out/
 build/

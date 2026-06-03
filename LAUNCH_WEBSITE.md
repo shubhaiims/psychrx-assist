@@ -56,6 +56,9 @@ git push -u origin main
 
 Create a Vercel project with root directory `backend`.
 
+This folder now includes `backend/vercel.json`, so Vercel should detect it as FastAPI
+and deploy `backend/app/app.py` as the API entrypoint.
+
 Set backend environment variables:
 
 - `CORS_ALLOW_ORIGINS=https://your-frontend-domain.vercel.app`
@@ -74,6 +77,9 @@ Notes:
 
 Create a second Vercel project with root directory `frontend`.
 
+This folder now includes `frontend/vercel.json`, so Vercel should build it as a Next.js
+project using the local `package-lock.json`.
+
 Set frontend environment variables:
 
 - `API_BASE_URL=https://your-backend-project.vercel.app`
@@ -84,6 +90,13 @@ Set frontend environment variables:
 
 Because the frontend proxies API requests through Next route handlers, the browser keeps
 calling `/api/...` in both local and production environments.
+
+Important: copy both domains from `Project > Settings > Domains`. Do not type guessed
+URLs manually. A mistyped or deleted domain produces Vercel's `DEPLOYMENT_NOT_FOUND`
+page.
+
+If `/api/...` shows `configuredBackend`, the frontend deployed correctly but
+`API_BASE_URL` is pointing at a backend deployment that Vercel cannot find.
 
 ## 5. Turn on analytics and monitoring
 
