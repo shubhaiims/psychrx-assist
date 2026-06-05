@@ -159,6 +159,41 @@
     "source_type": "guideline",
     "status": "placeholder"
   },
+  "MDD-BUPROPION-FIRSTLINE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; nonpsychotic unipolar depression first-line sequence.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "MDD-BUPROPION-PREFERENCE": {
+    "citation": "Local rule placeholder: antidepressant adverse-effect and shared-decision guidance for bupropion.",
+    "source_type": "preference",
+    "status": "placeholder"
+  },
+  "MDD-SEVERE-MELANCHOLIC-STEPUP": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; severe melancholic/inpatient depression branch.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "MDD-PSYCHOTIC-VENLAFAXINE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; psychotic depression antidepressant-antipsychotic pathway.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "MDD-PSYCHOTIC-SGA-EVIDENCE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; psychotic depression antipsychotic combination pathway.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "MDD-PSYCHOTIC-AD-NOTFAVORED": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; psychotic depression antidepressant selection notes.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "MDD-TRD-LITHIUM-AUGMENT": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; treatment-resistant depression augmentation branch.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
   "BIP-LITHIUM-FIRSTLINE": {
     "citation": "Local rule placeholder: lithium first-line for bipolar mania/maintenance and anti-suicidal evidence (bipolar guideline)",
     "source_type": "guideline",
@@ -172,6 +207,31 @@
   "BIP-LAMOTRIGINE": {
     "citation": "Local rule placeholder: lamotrigine for bipolar depression/maintenance of depressive episodes (bipolar guideline)",
     "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "BIP-DEP-PREFERRED": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; bipolar depression preferred-options node.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "BIP-DEP-AD-RISK": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; bipolar depression antidepressant delay/avoidance branch.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "BIP-MANIA-MIXED-SGA": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; acute mixed mania antipsychotic-first branch.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "BIP-MANIA-MIXED-VALPROATE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; acute mixed mania valproate add-on branch.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "BIP-MANIA-MIXED-LITHIUM-SEQUENCE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; acute mixed mania sequencing branch.",
+    "source_type": "algorithm",
     "status": "placeholder"
   },
   "PSY-CLOZAPINE-TRD": {

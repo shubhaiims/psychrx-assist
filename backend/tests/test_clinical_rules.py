@@ -85,6 +85,47 @@ def test_mdd_psychotic_features_supports_antipsychotic():
     assert hit(item, "MDD-SGA-ADJUNCT") is None  # adjunct caution suppressed for psychotic features
 
 
+def test_mdd_bupropion_first_line_and_preference_match():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        preferences=["avoid_sexual_side_effects", "avoid_weight_gain"],
+    )
+    item = item_for(r, "Bupropion")
+    assert hit(item, "MDD-BUPROPION-FIRSTLINE") is not None
+    assert hit(item, "MDD-BUPROPION-PREFERENCE") is not None
+
+
+def test_psychotic_depression_favors_venlafaxine_and_evidence_sga():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        severity=Severity.severe_with_psychotic_features,
+    )
+    assert hit(item_for(r, "Venlafaxine XR"), "MDD-PSYCHOTIC-VENLAFAXINE") is not None
+    assert hit(item_for(r, "Olanzapine"), "MDD-PSYCHOTIC-SGA-EVIDENCE") is not None
+
+
+def test_psychotic_depression_downranks_nonpreferred_antidepressants():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        severity=Severity.severe_with_psychotic_features,
+    )
+    assert hit(item_for(r, "Bupropion"), "MDD-PSYCHOTIC-AD-NOTFAVORED") is not None
+    assert hit(item_for(r, "Mirtazapine"), "MDD-PSYCHOTIC-AD-NOTFAVORED") is not None
+
+
+def test_trd_after_two_adequate_antidepressant_failures_adds_lithium_augmentation():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Sertraline", response="none", adequate_trial=True),
+            PreviousDrugResponse(drug="Escitalopram", response="none", adequate_trial=True),
+        ],
+    )
+    item = item_for(r, "Lithium")
+    assert item is not None
+    assert hit(item, "MDD-TRD-LITHIUM-AUGMENT") is not None
+
+
 def test_inadequate_nonresponse_prompts_adequate_trial_before_declaring_failure():
     r = recommend(
         diagnosis="major_depressive_disorder",
@@ -164,9 +205,37 @@ def test_bipolar_mania_antipsychotic_first_line():
     assert hit(item_for(r, "Quetiapine"), "BIP-MANIA-ANTIPSYCHOTIC") is not None
 
 
+def test_mixed_mania_uses_antipsychotic_first_sequence():
+    r = recommend(
+        diagnosis="bipolar_mania",
+        diagnosis_subtype="mixed features",
+        symptoms={"manic": True, "depressive": True},
+    )
+    assert hit(item_for(r, "Quetiapine"), "BIP-MANIA-MIXED-SGA") is not None
+    assert hit(item_for(r, "Lithium"), "BIP-MANIA-MIXED-LITHIUM-SEQUENCE") is not None
+
+
 def test_bipolar_depression_lamotrigine_first_line():
     r = recommend(diagnosis="bipolar_depression")
     assert hit(item_for(r, "Lamotrigine"), "BIP-LAMOTRIGINE") is not None
+
+
+def test_bipolar_depression_preferred_options_are_ranked():
+    r = recommend(diagnosis="bipolar_depression")
+    for drug in ("Lithium", "Quetiapine", "Lamotrigine", "Lurasidone", "Cariprazine"):
+        assert hit(item_for(r, drug), "BIP-DEP-PREFERRED") is not None, drug
+
+
+def test_bipolar_depression_antidepressants_strongly_cautioned_with_mixed_features():
+    r = recommend(
+        diagnosis="bipolar_depression",
+        diagnosis_subtype="rapid cycling mixed features",
+        symptoms={"depressive": True, "manic": True},
+    )
+    item = item_for(r, "Sertraline")
+    assert item is not None
+    assert hit(item, "BIP-DEP-AD-RISK") is not None
+    assert hit(item, "BIP-AD-MONOTX") is not None
 
 
 def test_bipolar_lithium_family_history_is_baseline_rule():
