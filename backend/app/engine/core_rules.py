@@ -73,7 +73,7 @@ def _adequate_duration_from_weeks(ctx: PatientContext, trial: PreviousDrugRespon
     return trial.duration_weeks >= minimum
 
 
-def _trial_adequacy(ctx: PatientContext, trial: PreviousDrugResponse) -> str:
+def trial_adequacy(ctx: PatientContext, trial: PreviousDrugResponse) -> str:
     """Return adequate, inadequate, or unknown using explicit clinician inputs first."""
     if trial.adequate_trial:
         return "adequate"
@@ -120,7 +120,7 @@ def apply_previous_response(ctx: PatientContext, drug: dict, card: ScoreCard) ->
         return
 
     response = normalise(past.response)
-    adequacy = _trial_adequacy(ctx, past)
+    adequacy = trial_adequacy(ctx, past)
 
     if response == "good":
         card.add_reason(

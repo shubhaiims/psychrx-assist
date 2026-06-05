@@ -186,6 +186,20 @@ def test_clozapine_reserved_for_treatment_resistance():
     assert e is not None and e.kind == "caution" and e.delta < 0
 
 
+def test_clozapine_supported_after_two_adequate_antipsychotic_failures():
+    r = recommend(
+        diagnosis="schizophrenia",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Risperidone", response="none", adequate_trial=True),
+            PreviousDrugResponse(drug="Olanzapine", response="none", adequate_trial=True),
+        ],
+    )
+    item = item_for(r, "Clozapine")
+    e = hit(item, "PSY-CLOZAPINE-TRS")
+    assert e is not None and e.kind == "reason" and e.delta > 0
+    assert hit(item, "PSY-CLOZAPINE-TRD") is None
+
+
 def test_sga_metabolic_monitoring_added():
     r = recommend(diagnosis="schizophrenia")
     item = item_for(r, "Olanzapine")

@@ -179,6 +179,11 @@
     "source_type": "boxed_warning",
     "status": "placeholder"
   },
+  "PSY-CLOZAPINE-TRS": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; schizophrenia algorithm clozapine node after adequate antipsychotic nonresponse.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
   "ANX-SSRI-FIRSTLINE": {
     "citation": "Local rule placeholder: SSRIs first-line for anxiety/OCD spectrum (anxiety/OCD guideline)",
     "source_type": "guideline",

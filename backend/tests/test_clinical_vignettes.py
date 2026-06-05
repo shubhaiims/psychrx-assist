@@ -256,6 +256,7 @@ def test_treatment_resistant_schizophrenia():
     r = report("treatment_resistant_schizophrenia")
     clo = option(r, "Clozapine")
     assert clo is not None
+    assert "treatment-resistant" in " ".join(clo.why_suitable).lower()
     assert any("anc" in m.lower() for m in clo.monitoring_required)   # mandatory ANC monitoring
     assert {"Risperidone", "Olanzapine"} <= concern(r)         # the two failed trials are down-ranked
 
