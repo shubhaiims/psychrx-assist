@@ -391,7 +391,8 @@ def test_past_severe_adr():
     r = report("past_severe_adr")
     ris = option(r, "Risperidone")
     assert "Risperidone" in concern(r)
-    text = " ".join(ris.why_caution).lower()
+    assert "Risperidone" in flagged(r)
+    text = " ".join(ris.why_caution + ris.why_unsuitable).lower()
     assert "adverse" in text or "intolerab" in text or "previous" in text
     assert usable(r)                                           # alternatives available
 

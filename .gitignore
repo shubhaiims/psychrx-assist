@@ -50,3 +50,4 @@ Thumbs.db
 
 # ---- Misc build artifacts ----
 *.tmp
+.codex_work/

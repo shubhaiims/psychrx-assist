@@ -109,6 +109,21 @@
     "source_type": "history",
     "status": "placeholder"
   },
+  "PASTRESP-INADQ": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; adequate-trial decision nodes.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PASTRESP-ADEQ-NONRESP": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; adequate nonresponse decision nodes.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PASTRESP-INTOL": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; intolerance/poor tolerability branches.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
   "PASTRESP-AE": {
     "citation": "Local rule placeholder: documented prior adverse-effect avoidance",
     "source_type": "history",

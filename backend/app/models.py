@@ -90,6 +90,10 @@ class PreviousDrugResponse(BaseModel):
     response: str = Field(description="good, partial, none, intolerable, unknown")
     adverse_effects: List[str] = []
     adequate_trial: bool = False
+    dose: Optional[str] = Field(default=None, description="Free-text dose reached, e.g. 'sertraline 150 mg/day'")
+    duration_weeks: Optional[float] = Field(default=None, ge=0, description="Approximate duration of the trial in weeks")
+    adequate_dose: Optional[bool] = Field(default=None, description="Whether a protocol-level dose was reached")
+    adequate_duration: Optional[bool] = Field(default=None, description="Whether protocol-level duration was reached")
 
 
 class LabValues(BaseModel):

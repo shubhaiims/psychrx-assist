@@ -22,7 +22,16 @@ const LABS: [string, string][] = [
 const list = (s: string): string[] => s.split(",").map((x) => x.trim()).filter(Boolean);
 const numOrNull = (s: string): number | null => (s.trim() === "" ? null : Number(s));
 
-type Trial = { drug: string; response: string; adequate_trial: boolean; adverse: string };
+type Trial = {
+  drug: string;
+  response: string;
+  adequate_trial: boolean;
+  adequate_dose: boolean;
+  adequate_duration: boolean;
+  duration_weeks: string;
+  dose: string;
+  adverse: string;
+};
 type Sym = Record<string, boolean>;
 
 const RECO_LABEL: Record<string, string> = {
@@ -166,7 +175,10 @@ export default function Assessment() {
   const setLab = (k: string, v: string) => setLabs((p) => ({ ...p, [k]: v }));
 
   function addTrial() {
-    setTrials((t) => [...t, { drug: "", response: "good", adequate_trial: false, adverse: "" }]);
+    setTrials((t) => [...t, {
+      drug: "", response: "good", adequate_trial: false, adequate_dose: false,
+      adequate_duration: false, duration_weeks: "", dose: "", adverse: "",
+    }]);
   }
   function updateTrial(i: number, k: keyof Trial, v: string | boolean) {
     setTrials((t) => t.map((row, idx) => (idx === i ? { ...row, [k]: v } : row)));
@@ -204,7 +216,16 @@ export default function Assessment() {
       preferences,
       previous_drug_responses: trials
         .filter((t) => t.drug.trim())
-        .map((t) => ({ drug: t.drug.trim(), response: t.response, adequate_trial: t.adequate_trial, adverse_effects: list(t.adverse) })),
+        .map((t) => ({
+          drug: t.drug.trim(),
+          response: t.response,
+          adequate_trial: t.adequate_trial,
+          adequate_dose: t.adequate_dose,
+          adequate_duration: t.adequate_duration,
+          duration_weeks: numOrNull(t.duration_weeks),
+          dose: t.dose.trim() || null,
+          adverse_effects: list(t.adverse),
+        })),
       labs: {
         ...Object.fromEntries(LABS.map(([k]) => [k, numOrNull(labs[k] ?? "")])),
         pregnancy_test_done: f.pregnancy_test_done || null,
@@ -469,11 +490,25 @@ export default function Assessment() {
                   </select></div>
                 <div className="field"><label>Adverse effects</label>
                   <input type="text" value={t.adverse} placeholder="comma-separated" onChange={(e) => updateTrial(i, "adverse", e.target.value)} /></div>
+                <div className="field"><label>Dose reached</label>
+                  <input type="text" value={t.dose} placeholder="e.g. 150 mg/day" onChange={(e) => updateTrial(i, "dose", e.target.value)} /></div>
+                <div className="field"><label>Duration (weeks)</label>
+                  <input type="number" value={t.duration_weeks} onChange={(e) => updateTrial(i, "duration_weeks", e.target.value)} /></div>
                 <button className="removeBtn" onClick={() => removeTrial(i)} type="button">Remove</button>
               </div>
               <div className="checkboxRow" style={{ marginTop: 10 }}>
                 <input id={`adeq-${i}`} type="checkbox" checked={t.adequate_trial} onChange={(e) => updateTrial(i, "adequate_trial", e.target.checked)} />
-                <label htmlFor={`adeq-${i}`}>Adequate trial (dose &amp; duration)</label>
+                <label htmlFor={`adeq-${i}`}>Overall adequate trial</label>
+              </div>
+              <div className="checkGroup" style={{ marginTop: 10 }}>
+                <div className="checkboxRow">
+                  <input id={`dose-${i}`} type="checkbox" checked={t.adequate_dose} onChange={(e) => updateTrial(i, "adequate_dose", e.target.checked)} />
+                  <label htmlFor={`dose-${i}`}>Adequate dose reached</label>
+                </div>
+                <div className="checkboxRow">
+                  <input id={`duration-${i}`} type="checkbox" checked={t.adequate_duration} onChange={(e) => updateTrial(i, "adequate_duration", e.target.checked)} />
+                  <label htmlFor={`duration-${i}`}>Adequate duration completed</label>
+                </div>
               </div>
             </div>
           ))}

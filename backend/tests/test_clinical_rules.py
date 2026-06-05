@@ -85,6 +85,71 @@ def test_mdd_psychotic_features_supports_antipsychotic():
     assert hit(item, "MDD-SGA-ADJUNCT") is None  # adjunct caution suppressed for psychotic features
 
 
+def test_inadequate_nonresponse_prompts_adequate_trial_before_declaring_failure():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        previous_drug_responses=[
+            PreviousDrugResponse(
+                drug="Sertraline",
+                response="none",
+                adequate_trial=False,
+                adequate_dose=False,
+                adequate_duration=False,
+                duration_weeks=2,
+            )
+        ],
+    )
+    item = item_for(r, "Sertraline")
+    assert hit(item, "PASTRESP-INADQ") is not None
+    assert hit(item, "PASTRESP-ADEQ-NONRESP") is None
+    assert item.category == "use_with_caution"
+    assert any("Confirm adequate dose and duration" in m for m in item.monitoring)
+
+
+def test_adequate_nonresponse_makes_same_drug_unsuitable():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Sertraline", response="none", adequate_trial=True)
+        ],
+    )
+    item = item_for(r, "Sertraline")
+    e = hit(item, "PASTRESP-ADEQ-NONRESP")
+    assert e is not None and e.kind == "caution" and e.delta < -50
+    assert item.category == "relatively_unsuitable"
+
+
+def test_prior_intolerance_makes_same_drug_unsuitable():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        previous_drug_responses=[
+            PreviousDrugResponse(
+                drug="Sertraline",
+                response="intolerable",
+                adequate_trial=True,
+                adverse_effects=["severe nausea"],
+            )
+        ],
+    )
+    item = item_for(r, "Sertraline")
+    assert hit(item, "PASTRESP-INTOL") is not None
+    assert hit(item, "PASTRESP-AE") is not None
+    assert item.category == "relatively_unsuitable"
+
+
+def test_prior_response_protocol_preserves_legacy_when_extended_rules_off():
+    r = recommend(
+        extended=False,
+        diagnosis="major_depressive_disorder",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Sertraline", response="none", adequate_trial=False)
+        ],
+    )
+    item = item_for(r, "Sertraline")
+    assert hit(item, "PASTRESP-FAIL") is not None
+    assert hit(item, "PASTRESP-INADQ") is None
+
+
 # --------------------------------------------------------------------------- #
 # 2. Bipolar disorder                                                         #
 # --------------------------------------------------------------------------- #
