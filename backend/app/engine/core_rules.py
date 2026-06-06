@@ -147,12 +147,22 @@ def apply_previous_response(ctx: PatientContext, drug: dict, card: ScoreCard) ->
             card.add_monitoring("Confirm adequate dose and duration before classifying this previous trial as failed.")
     elif response == "none":
         if adequacy == "adequate":
-            card.add_caution(
-                "PASTRESP-ADEQ-NONRESP",
-                "Previous no response after an adequate trial; do not re-suggest this drug unless there is a clear clinician override reason.",
-                delta=-85,
-                references=cite("PASTRESP-ADEQ-NONRESP"),
-            )
+            if ctx.diagnosis == "schizophrenia" and normalise(drug["name"]) == "clozapine":
+                card.add_caution(
+                    "PASTRESP-CLOZ-OPTIMIZE",
+                    "Apparent clozapine nonresponse requires confirmation of adherence, duration, tolerability, smoking/CYP interactions, and a therapeutic trough level before abandoning clozapine.",
+                    delta=-10,
+                    references=cite("PASTRESP-CLOZ-OPTIMIZE"),
+                )
+                card.add_investigation("Clozapine trough plasma level before declaring treatment failure.")
+                card.add_monitoring("Review smoking changes and CYP1A2 interactions when interpreting clozapine response or toxicity.")
+            else:
+                card.add_caution(
+                    "PASTRESP-ADEQ-NONRESP",
+                    "Previous no response after an adequate trial; do not re-suggest this drug unless there is a clear clinician override reason.",
+                    delta=-85,
+                    references=cite("PASTRESP-ADEQ-NONRESP"),
+                )
         else:
             card.add_caution(
                 "PASTRESP-INADQ",

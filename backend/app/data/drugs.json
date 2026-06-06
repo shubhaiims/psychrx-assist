@@ -133,6 +133,25 @@
     "references": ["Local rule placeholder: add schizophrenia/bipolar guideline citation", "Licensed drug monograph placeholder"]
   },
   {
+    "name": "Amisulpride",
+    "class_name": "Second-generation antipsychotic",
+    "base_score": 72,
+    "diagnoses": ["schizophrenia", "acute_psychosis"],
+    "age_groups": ["adult"],
+    "pregnancy": "specialist_review",
+    "lactation": "specialist_review",
+    "renal": "dose_adjust",
+    "hepatic": "standard",
+    "qt_risk": "moderate",
+    "metabolic_risk": "low",
+    "sedation": "moderate",
+    "overdose_toxicity": "moderate",
+    "lai_available": false,
+    "baseline_investigations": ["weight/BMI", "BP", "fasting glucose/HbA1c", "lipid profile", "prolactin", "ECG/QTc", "renal function", "local formulary availability"],
+    "monitoring": ["EPS", "prolactin-related effects", "QTc", "renal dosing", "confirm availability because amisulpride is not marketed in every country"],
+    "references": ["Local rule placeholder: add schizophrenia guideline citation", "Licensed drug monograph/local formulary placeholder"]
+  },
+  {
     "name": "Olanzapine",
     "class_name": "Second-generation antipsychotic",
     "base_score": 74,
@@ -288,7 +307,7 @@
     "name": "Lurasidone",
     "class_name": "Second-generation antipsychotic",
     "base_score": 72,
-    "diagnoses": ["schizophrenia", "bipolar_depression"],
+    "diagnoses": ["schizophrenia", "acute_psychosis", "bipolar_depression"],
     "age_groups": ["adult"],
     "pregnancy": "specialist_review",
     "lactation": "specialist_review",
@@ -300,7 +319,7 @@
     "overdose_toxicity": "moderate",
     "lai_available": false,
     "baseline_investigations": ["weight/BMI", "BP", "fasting glucose/HbA1c", "lipid profile", "EPS/akathisia baseline", "current medication interaction review"],
-    "monitoring": ["akathisia/EPS", "sedation", "metabolic profile", "drug interactions with strong CYP3A4 inhibitors/inducers"],
+    "monitoring": ["akathisia/EPS", "sedation", "metabolic profile", "take with the required meal for reliable absorption", "drug interactions with strong CYP3A4 inhibitors/inducers"],
     "references": ["Local rule placeholder: add bipolar depression/schizophrenia guideline citation", "Licensed drug monograph placeholder"]
   },
   {
@@ -338,8 +357,27 @@
     "overdose_toxicity": "moderate",
     "lai_available": false,
     "baseline_investigations": ["weight/BMI", "BP", "fasting glucose/HbA1c", "lipid profile", "ECG/QTc", "electrolytes if QT risk"],
-    "monitoring": ["QTc", "EPS/akathisia", "metabolic profile", "take with food for absorption"],
+    "monitoring": ["QTc", "EPS/akathisia", "metabolic profile", "take each oral dose with an adequate meal for reliable absorption"],
     "references": ["Local rule placeholder: add schizophrenia/bipolar guideline citation", "Licensed drug monograph placeholder"]
+  },
+  {
+    "name": "Haloperidol",
+    "class_name": "First-generation antipsychotic",
+    "base_score": 68,
+    "diagnoses": ["schizophrenia", "acute_psychosis", "bipolar_mania"],
+    "age_groups": ["adult", "elderly"],
+    "pregnancy": "specialist_review",
+    "lactation": "specialist_review",
+    "renal": "standard",
+    "hepatic": "start_low_go_slow",
+    "qt_risk": "high",
+    "metabolic_risk": "low",
+    "sedation": "moderate",
+    "overdose_toxicity": "moderate",
+    "lai_available": true,
+    "baseline_investigations": ["EPS/tardive-dyskinesia baseline", "ECG/QTc", "electrolytes if QT risk", "weight/BMI", "current medication interaction review"],
+    "monitoring": ["EPS/parkinsonism", "akathisia", "tardive dyskinesia", "QTc", "prolactin-related effects", "neuroleptic malignant syndrome"],
+    "references": ["Local rule placeholder: add schizophrenia/acute agitation guideline citation", "Licensed drug monograph placeholder"]
   },
   {
     "name": "Methylphenidate",

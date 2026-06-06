@@ -269,6 +269,100 @@ def test_clozapine_supported_after_two_adequate_antipsychotic_failures():
     assert hit(item, "PSY-CLOZAPINE-TRD") is None
 
 
+def test_first_episode_prefers_lower_burden_initial_antipsychotics():
+    r = recommend(
+        diagnosis="schizophrenia",
+        diagnosis_subtype="first episode",
+        symptoms={"psychotic": True},
+    )
+    for drug in ("Amisulpride", "Aripiprazole", "Lurasidone", "Risperidone", "Ziprasidone"):
+        assert hit(item_for(r, drug), "PSY-FIRST-EPISODE-PREFERRED") is not None, drug
+    assert hit(item_for(r, "Olanzapine"), "PSY-FIRST-EPISODE-OLANZAPINE") is not None
+    assert hit(item_for(r, "Quetiapine"), "PSY-FIRST-EPISODE-QUETIAPINE") is not None
+    assert hit(item_for(r, "Haloperidol"), "PSY-FIRST-EPISODE-FGA") is not None
+    assert hit(item_for(r, "Cariprazine"), "PSY-FIRST-EPISODE-OTHER-SGA") is not None
+
+
+def test_second_trial_prefers_new_monotherapy_after_one_adequate_failure():
+    r = recommend(
+        diagnosis="schizophrenia",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Aripiprazole", response="none", adequate_trial=True),
+        ],
+    )
+    for drug in ("Risperidone", "Olanzapine", "Haloperidol"):
+        assert hit(item_for(r, drug), "PSY-SECOND-MONOTHERAPY") is not None, drug
+
+
+def test_clozapine_gate_requires_one_high_efficacy_trial_when_risk_not_urgent():
+    r = recommend(
+        diagnosis="schizophrenia",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Aripiprazole", response="none", adequate_trial=True),
+            PreviousDrugResponse(drug="Lurasidone", response="none", adequate_trial=True),
+        ],
+    )
+    item = item_for(r, "Clozapine")
+    assert hit(item, "PSY-CLOZAPINE-TRS-CONDITIONAL") is not None
+    assert hit(item, "PSY-CLOZAPINE-EFFICACY-GATE") is not None
+    assert hit(item, "PSY-CLOZAPINE-TRS") is None
+
+
+def test_clozapine_can_be_considered_early_for_suicidality_or_aggression():
+    suicidal = recommend(
+        diagnosis="schizophrenia",
+        suicide_risk=True,
+        suicidality="ideation_with_plan",
+    )
+    aggressive = recommend(
+        diagnosis="schizophrenia",
+        symptoms={"psychotic": True, "aggression_risk": True},
+    )
+    assert hit(item_for(suicidal, "Clozapine"), "PSY-CLOZAPINE-EARLY-RISK") is not None
+    assert hit(item_for(aggressive, "Clozapine"), "PSY-CLOZAPINE-EARLY-RISK") is not None
+
+
+def test_apparent_clozapine_nonresponse_prompts_optimization_not_automatic_rejection():
+    r = recommend(
+        diagnosis="schizophrenia",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Clozapine", response="none", adequate_trial=True),
+        ],
+    )
+    item = item_for(r, "Clozapine")
+    assert hit(item, "PASTRESP-CLOZ-OPTIMIZE") is not None
+    assert hit(item, "PASTRESP-ADEQ-NONRESP") is None
+    assert hit(item, "PSY-CLOZAPINE-OPTIMIZE") is not None
+    assert item.category != "relatively_unsuitable"
+    assert any("trough" in investigation.lower() for investigation in item.baseline_investigations)
+
+
+def test_optimized_clozapine_partial_response_surfaces_weak_augmentation_options():
+    r = recommend(
+        diagnosis="schizophrenia",
+        previous_drug_responses=[
+            PreviousDrugResponse(drug="Clozapine", response="partial", adequate_trial=True),
+        ],
+    )
+    for drug in ("Risperidone", "Lamotrigine"):
+        item = item_for(r, drug)
+        assert item is not None
+        assert hit(item, "PSY-CLOZAPINE-AUGMENT") is not None
+        assert hit(item, "PSY-CLOZAPINE-AUGMENT-WEAK") is not None
+
+
+def test_primary_negative_symptoms_surface_cariprazine_and_mirtazapine_adjunct():
+    r = recommend(
+        diagnosis="schizophrenia",
+        symptoms={"negative": True},
+    )
+    assert hit(item_for(r, "Cariprazine"), "PSY-NEGATIVE-CARIPRAZINE") is not None
+    mirtazapine = item_for(r, "Mirtazapine")
+    assert mirtazapine is not None
+    assert hit(mirtazapine, "PSY-NEGATIVE-MIRTAZAPINE") is not None
+    assert hit(mirtazapine, "PSY-NEGATIVE-MIRTAZAPINE-ADJUNCT") is not None
+
+
 def test_sga_metabolic_monitoring_added():
     r = recommend(diagnosis="schizophrenia")
     item = item_for(r, "Olanzapine")

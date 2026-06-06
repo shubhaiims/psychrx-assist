@@ -238,7 +238,8 @@ def test_bipolar_renal_impairment():
 def test_first_episode_psychosis():
     r = report("first_episode_psychosis")
     assert most(r)                                             # antipsychotic options returned
-    assert "Olanzapine" in most(r) or "Risperidone" in most(r)
+    assert most(r) & {"Amisulpride", "Aripiprazole", "Lurasidone", "Risperidone", "Ziprasidone"}
+    assert "Olanzapine" in concern(r)                          # metabolic burden -> not preferred first trial
 
 
 # 9. schizophrenia with poor adherence

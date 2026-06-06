@@ -77,6 +77,7 @@ class SymptomProfile(BaseModel):
     captured universally; diagnosis modules and the extended rule set consume them
     (e.g. catatonia/aggression flags). Add severities here as rules require them."""
     psychotic: bool = False
+    negative: bool = False
     manic: bool = False
     depressive: bool = False
     anxiety: bool = False

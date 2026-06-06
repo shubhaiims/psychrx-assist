@@ -124,6 +124,11 @@
     "source_type": "algorithm",
     "status": "placeholder"
   },
+  "PASTRESP-CLOZ-OPTIMIZE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; clozapine optimization and plasma-level pathway.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
   "PASTRESP-AE": {
     "citation": "Local rule placeholder: documented prior adverse-effect avoidance",
     "source_type": "history",
@@ -241,6 +246,81 @@
   },
   "PSY-CLOZAPINE-TRS": {
     "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; schizophrenia algorithm clozapine node after adequate antipsychotic nonresponse.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-FIRST-EPISODE-PREFERRED": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; schizophrenia first antipsychotic trial node.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-FIRST-EPISODE-OLANZAPINE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; first-episode olanzapine metabolic-risk caution.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-FIRST-EPISODE-QUETIAPINE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; first-episode quetiapine effectiveness/tolerability caution.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-FIRST-EPISODE-FGA": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; first-episode FGA movement-disorder caution.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-FIRST-EPISODE-OTHER-SGA": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; preferred first-episode antipsychotic list.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-SECOND-MONOTHERAPY": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; schizophrenia second monotherapy node.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-CLOZAPINE-EARLY-RISK": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; earlier clozapine consideration for suicidality/aggression.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-CLOZAPINE-OPTIMIZE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; clozapine level/adherence optimization before augmentation.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-CLOZAPINE-TRS-CONDITIONAL": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; treatment-resistance threshold with efficacy-trial qualification.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-CLOZAPINE-EFFICACY-GATE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; risperidone/olanzapine/FGA trial before clozapine qualification.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-NEGATIVE-CARIPRAZINE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; predominant negative-symptom update.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-NEGATIVE-MIRTAZAPINE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; antidepressant augmentation for negative symptoms.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-NEGATIVE-MIRTAZAPINE-ADJUNCT": {
+    "citation": "Local rule placeholder: mirtazapine is adjunctive and does not replace antipsychotic treatment in schizophrenia.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "PSY-CLOZAPINE-AUGMENT": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; clozapine augmentation node.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PSY-CLOZAPINE-AUGMENT-WEAK": {
+    "citation": "Osser DN. Psychopharmacology Algorithms: Clinical Guidance from the Psychopharmacology Algorithm Project at the Harvard South Shore Psychiatry Residency Program. 2020; weak/modest clozapine augmentation evidence.",
     "source_type": "algorithm",
     "status": "placeholder"
   },

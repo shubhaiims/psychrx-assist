@@ -7,7 +7,8 @@ import type { RecommendationReport, DrugOption, GuidelineReference } from "@/lib
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
 
 const SYMPTOMS: [string, string][] = [
-  ["psychotic", "Psychotic features"], ["manic", "Manic features"],
+  ["psychotic", "Psychotic features"], ["negative", "Prominent negative symptoms"],
+  ["manic", "Manic features"],
   ["depressive", "Depressive features"], ["anxiety", "Prominent anxiety"],
   ["ocd", "Obsessions / compulsions"], ["catatonia", "Catatonia"],
 ];
@@ -143,7 +144,7 @@ export default function Assessment() {
     pregnancy_test_done: false,
   });
   const [sym, setSym] = useState<Sym>({
-    psychotic: false, manic: false, depressive: false, anxiety: false, ocd: false,
+    psychotic: false, negative: false, manic: false, depressive: false, anxiety: false, ocd: false,
     aggression_risk: false, catatonia: false,
   });
   const [labs, setLabs] = useState<Record<string, string>>({});
