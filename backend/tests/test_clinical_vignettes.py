@@ -83,6 +83,13 @@ VIGNETTES = {
         family_history=["bipolar disorder"], family_history_drug_response=["good lithium response in mother"]),
     "non_adherence": dict(age=33, sex="male", diagnosis="schizophrenia", severity="moderate",
         non_adherence_risk=True, symptoms={"psychotic": True}),
+    "social_anxiety": dict(age=29, sex="female", diagnosis="social_anxiety_disorder",
+        severity="moderate", symptoms={"anxiety": True, "avoidance": True}),
+    "ptsd_nightmares": dict(age=38, sex="male", diagnosis="ptsd", severity="moderate",
+        symptoms={"nightmares": True, "insomnia": True, "hyperarousal": True}),
+    "inpatient_agitation": dict(age=31, sex="male", diagnosis="schizophrenia",
+        severity="severe", care_setting="inpatient",
+        symptoms={"psychotic": True, "agitation": True, "aggression_risk": True}),
     # --- extra: exercises the contraindicated_or_avoid bucket ---
     "bipolar_mania_pregnancy": dict(age=30, sex="female", diagnosis="bipolar_mania", severity="severe",
         pregnancy_status="pregnant_second_trimester", symptoms={"manic": True}),
@@ -274,7 +281,8 @@ def test_psychosis_with_diabetes_obesity():
 # 12. OCD adult
 def test_ocd_adult():
     r = report("ocd_adult")
-    assert {"Sertraline", "Escitalopram", "Fluoxetine"} <= most(r)   # SSRIs first-line for OCD
+    assert {"Sertraline", "Fluoxetine"} <= most(r)             # preferred SSRIs first-line
+    assert "Escitalopram" in concern(r)                        # dose-related QT caution
 
 
 # 13. OCD child / adolescent

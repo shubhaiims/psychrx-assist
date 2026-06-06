@@ -11,6 +11,10 @@ const SYMPTOMS: [string, string][] = [
   ["manic", "Manic features"],
   ["depressive", "Depressive features"], ["anxiety", "Prominent anxiety"],
   ["ocd", "Obsessions / compulsions"], ["catatonia", "Catatonia"],
+  ["agitation", "Agitation"], ["insomnia", "Insomnia"],
+  ["nightmares", "Trauma-related nightmares"], ["hyperarousal", "Hyperarousal"],
+  ["reexperiencing", "Trauma re-experiencing"], ["avoidance", "Trauma avoidance"],
+  ["dissociation", "Dissociative symptoms"],
 ];
 
 const LABS: [string, string][] = [
@@ -138,6 +142,7 @@ export default function Assessment() {
     age: 35, sex: "female", height_cm: "165", weight_kg: "70",
     pregnancy_status: "not_pregnant", renal_status: "normal", hepatic_status: "normal",
     diagnosis: "major_depressive_disorder", diagnosis_subtype: "", severity: "moderate",
+    care_setting: "outpatient",
     total_duration_months: "", current_episode_duration_weeks: "",
     suicide_risk: false, suicidality: "none", non_adherence_risk: false,
     cardiac_disease: false, seizure_disorder: false, cost_concern: false,
@@ -145,7 +150,9 @@ export default function Assessment() {
   });
   const [sym, setSym] = useState<Sym>({
     psychotic: false, negative: false, manic: false, depressive: false, anxiety: false, ocd: false,
-    aggression_risk: false, catatonia: false,
+    aggression_risk: false, catatonia: false, agitation: false, insomnia: false,
+    nightmares: false, hyperarousal: false, reexperiencing: false, avoidance: false,
+    dissociation: false, poor_oral_intake: false, immobility: false,
   });
   const [labs, setLabs] = useState<Record<string, string>>({});
   const [familyHistory, setFamilyHistory] = useState("");
@@ -202,7 +209,8 @@ export default function Assessment() {
       height_cm: numOrNull(f.height_cm), weight_kg: numOrNull(f.weight_kg),
       pregnancy_status: f.pregnancy_status, renal_status: f.renal_status, hepatic_status: f.hepatic_status,
       cardiac_disease: f.cardiac_disease, seizure_disorder: f.seizure_disorder,
-      diagnosis: f.diagnosis, diagnosis_subtype: f.diagnosis_subtype || null, severity: f.severity,
+      diagnosis: f.diagnosis, diagnosis_subtype: f.diagnosis_subtype || null,
+      severity: f.severity, care_setting: f.care_setting,
       total_duration_months: numOrNull(f.total_duration_months),
       current_episode_duration_weeks: numOrNull(f.current_episode_duration_weeks),
       symptoms: sym,
@@ -393,6 +401,12 @@ export default function Assessment() {
                 <option value="severe_with_psychotic_features">Severe with psychotic features</option>
                 <option value="emergency">Emergency</option>
               </select></div>
+            <div className="field"><label>Care setting</label>
+              <select value={f.care_setting} onChange={(e) => set("care_setting", e.target.value)}>
+                <option value="outpatient">Outpatient</option>
+                <option value="emergency_department">Emergency department</option>
+                <option value="inpatient">Psychiatric inpatient</option>
+              </select></div>
             <div className="field"><label>Illness duration (months)</label>
               <input type="number" value={f.total_duration_months} onChange={(e) => set("total_duration_months", e.target.value)} /></div>
             <div className="field"><label>Current episode (weeks)</label>
@@ -433,6 +447,8 @@ export default function Assessment() {
               <div className="checkGroup">
                 <div className="checkboxRow"><input id="suicide_risk" type="checkbox" checked={f.suicide_risk} onChange={(e) => set("suicide_risk", e.target.checked)} /><label htmlFor="suicide_risk">Suicide risk present</label></div>
                 <div className="checkboxRow"><input id="aggression" type="checkbox" checked={sym.aggression_risk} onChange={(e) => setSym((p) => ({ ...p, aggression_risk: e.target.checked }))} /><label htmlFor="aggression">Aggression / violence risk</label></div>
+                <div className="checkboxRow"><input id="poor-intake" type="checkbox" checked={sym.poor_oral_intake} onChange={(e) => setSym((p) => ({ ...p, poor_oral_intake: e.target.checked }))} /><label htmlFor="poor-intake">Poor oral intake / refusal</label></div>
+                <div className="checkboxRow"><input id="immobility" type="checkbox" checked={sym.immobility} onChange={(e) => setSym((p) => ({ ...p, immobility: e.target.checked }))} /><label htmlFor="immobility">Marked immobility</label></div>
                 <div className="checkboxRow"><input id="nonadherence" type="checkbox" checked={f.non_adherence_risk} onChange={(e) => set("non_adherence_risk", e.target.checked)} /><label htmlFor="nonadherence">Non-adherence risk</label></div>
               </div>
             </div>
@@ -596,6 +612,7 @@ export default function Assessment() {
               <span className="chip">{cs.diagnosis_display}</span>
               {cs.diagnosis_subtype && <span className="chip">{cs.diagnosis_subtype}</span>}
               <span className="chip">Severity: {cs.severity}</span>
+              <span className="chip">{cs.care_setting.replaceAll("_", " ")}</span>
               <span className="chip">{cs.age_group}</span>
               {cs.bmi != null && <span className="chip">BMI {cs.bmi}</span>}
               {cs.pregnancy_status && cs.pregnancy_status !== "not_pregnant" && cs.pregnancy_status !== "not_applicable" && <span className="chip">{cs.pregnancy_status}</span>}
@@ -643,6 +660,10 @@ export default function Assessment() {
             {result.required_monitoring.length === 0
               ? <p className="muted">None aggregated for the recommended options.</p>
               : <ul className="plain">{result.required_monitoring.map((m, i) => <li key={i}>{m}</li>)}</ul>}
+          </ResultBlock>
+
+          <ResultBlock tone="blue" title="Algorithm notes">
+            <ul className="plain">{result.algorithm_notes.map((n, i) => <li key={i}>{n}</li>)}</ul>
           </ResultBlock>
 
           <ResultBlock tone="neutral" title="Non-pharmacological recommendations">

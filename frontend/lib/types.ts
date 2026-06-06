@@ -36,6 +36,7 @@ export type CaseSummary = {
   diagnosis_display: string;
   diagnosis_subtype: string | null;
   severity: string;
+  care_setting: string;
   pregnancy_status: string;
   lactating: boolean;
   renal_status: string;
@@ -62,6 +63,7 @@ export type RecommendationReport = {
   contraindicated_or_avoid: DrugOption[];
   missing_investigations: string[];
   required_monitoring: string[];
+  algorithm_notes: string[];
   non_pharmacological_recommendations: string[];
   guideline_references: GuidelineReference[];
   clinician_override_note: string;

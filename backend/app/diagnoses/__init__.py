@@ -35,6 +35,7 @@ from app.diagnoses import acute_psychosis  # noqa: F401
 # Anxiety / obsessive-compulsive / trauma
 from app.diagnoses import ocd  # noqa: F401
 from app.diagnoses import generalized_anxiety_disorder  # noqa: F401
+from app.diagnoses import social_anxiety_disorder  # noqa: F401
 from app.diagnoses import panic_disorder  # noqa: F401
 from app.diagnoses import ptsd  # noqa: F401
 

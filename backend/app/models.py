@@ -61,6 +61,12 @@ class Severity(str, Enum):
     emergency = "emergency"
 
 
+class CareSetting(str, Enum):
+    outpatient = "outpatient"
+    emergency_department = "emergency_department"
+    inpatient = "inpatient"
+
+
 class Suicidality(str, Enum):
     """Graded suicidality. ``suicide_risk`` (a bool) remains the field the baseline
     safety rule keys on; this graded field refines it for the extended rule set."""
@@ -84,6 +90,15 @@ class SymptomProfile(BaseModel):
     ocd: bool = False
     aggression_risk: bool = False
     catatonia: bool = False
+    agitation: bool = False
+    insomnia: bool = False
+    nightmares: bool = False
+    hyperarousal: bool = False
+    reexperiencing: bool = False
+    avoidance: bool = False
+    dissociation: bool = False
+    poor_oral_intake: bool = False
+    immobility: bool = False
 
 
 class PreviousDrugResponse(BaseModel):
@@ -144,6 +159,7 @@ class PatientProfile(BaseModel):
     diagnosis: Diagnosis
     diagnosis_subtype: Optional[str] = None
     severity: Severity = Severity.moderate
+    care_setting: CareSetting = CareSetting.outpatient
     total_duration_months: Optional[int] = Field(default=None, ge=0)
     current_episode_duration_weeks: Optional[int] = Field(default=None, ge=0)
 
@@ -235,6 +251,7 @@ class CaseSummary(BaseModel):
     diagnosis_display: str
     diagnosis_subtype: Optional[str] = None
     severity: str
+    care_setting: str
     pregnancy_status: str
     lactating: bool = False
     renal_status: str
@@ -284,6 +301,7 @@ class RecommendationReport(BaseModel):
     contraindicated_or_avoid: List[DrugOption] = []
     missing_investigations: List[str] = []
     required_monitoring: List[str] = []
+    algorithm_notes: List[str] = []
     non_pharmacological_recommendations: List[str] = []
     guideline_references: List[GuidelineReference] = []
     clinician_override_note: str

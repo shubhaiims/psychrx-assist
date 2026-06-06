@@ -51,22 +51,59 @@ INTERACTIONS: List[dict] = [
     },
     {
         "rule_id": "DDI-SEROTONIN-MAOI",
-        "applies_to_class": "SSRI",
+        "applies_to_classes": [
+            "SSRI",
+            "SNRI",
+            "Tricyclic antidepressant / serotonin reuptake inhibitor",
+            "Serotonin antagonist and reuptake inhibitor",
+        ],
         "current_med_keywords": ["maoi", "phenelzine", "tranylcypromine", "isocarboxazid", "selegiline", "moclobemide", "linezolid"],
         "severity": "contraindicated",
         "delta": 0,
-        "detail": "An SSRI with a monoamine-oxidase inhibitor (or linezolid) risks serotonin syndrome and is contraindicated without an adequate washout; do not co-prescribe.",
+        "detail": "A serotonergic antidepressant with a monoamine-oxidase inhibitor (or linezolid) risks serotonin syndrome and is contraindicated without an adequate washout; do not co-prescribe.",
         "monitoring": None,
         "investigation": None,
     },
     {
         "rule_id": "DDI-SEROTONIN-OTHER",
-        "applies_to_class": "SSRI",
+        "applies_to_classes": [
+            "SSRI",
+            "SNRI",
+            "Tricyclic antidepressant / serotonin reuptake inhibitor",
+            "Serotonin antagonist and reuptake inhibitor",
+        ],
         "current_med_keywords": ["tramadol", "triptan", "sumatriptan", "st john", "fentanyl", "pethidine", "meperidine"],
         "severity": "caution",
         "delta": -15,
         "detail": "Additional serotonergic co-medication (e.g. tramadol, triptans, St John's wort) raises serotonin-syndrome risk; review necessity and counsel on warning signs.",
         "monitoring": "Counsel on and monitor for serotonin-syndrome features when combined with other serotonergic agents.",
+        "investigation": None,
+    },
+    {
+        "rule_id": "DDI-MAOI-SEROTONERGIC",
+        "applies_to_name": "phenelzine",
+        "current_med_keywords": [
+            "ssri", "snri", "sertraline", "fluoxetine", "fluvoxamine", "paroxetine",
+            "escitalopram", "citalopram", "venlafaxine", "duloxetine", "clomipramine",
+            "trazodone", "tramadol", "linezolid",
+        ],
+        "severity": "contraindicated",
+        "delta": 0,
+        "detail": "Phenelzine with a serotonergic antidepressant or selected serotonergic medicines can cause life-threatening serotonin toxicity; do not combine and use the required drug-specific washout.",
+        "monitoring": None,
+        "investigation": "Complete medication and recent-discontinuation review before starting an MAOI.",
+    },
+    {
+        "rule_id": "DDI-SEDATIVE-RESPIRATORY",
+        "applies_to_names": ["clonazepam", "pregabalin", "gabapentin"],
+        "current_med_keywords": [
+            "opioid", "morphine", "oxycodone", "fentanyl", "codeine", "methadone",
+            "buprenorphine", "alcohol", "benzodiazepine", "zopiclone", "zolpidem",
+        ],
+        "severity": "caution",
+        "delta": -20,
+        "detail": "Combining this sedating medicine with opioids, alcohol, benzodiazepines, or other sedatives increases respiratory depression, overdose, falls, and cognitive impairment risk.",
+        "monitoring": "Review sedation, respiratory risk, falls, driving, misuse, and the necessity of every CNS depressant.",
         "investigation": None,
     },
 ]
@@ -77,7 +114,11 @@ def _candidate_matches(rule: dict, drug: dict) -> bool:
     class_name = drug.get("class_name", "")
     if "applies_to_name" in rule and name == rule["applies_to_name"]:
         return True
+    if "applies_to_names" in rule and name in rule["applies_to_names"]:
+        return True
     if "applies_to_class" in rule and class_name == rule["applies_to_class"]:
+        return True
+    if "applies_to_classes" in rule and class_name in rule["applies_to_classes"]:
         return True
     return False
 

@@ -29,6 +29,22 @@ def compute_global_missing_information(profile: PatientProfile) -> List[str]:
         missing.append("ECG/QTc where QT-risk drug, cardiac illness, overdose risk, or polypharmacy is relevant")
     if not profile.current_medications:
         missing.append("Current medication list for interaction checking")
+    if enum_value(profile.care_setting) in {"emergency_department", "inpatient"}:
+        if not any(
+            "reconciliation" in item.lower() or "collateral" in item.lower()
+            for item in profile.investigations_done
+        ):
+            missing.append(
+                "Medication reconciliation and collateral medication/adherence history"
+            )
+        if not any(
+            keyword in item.lower()
+            for item in profile.investigations_done
+            for keyword in ("physical exam", "medical assessment", "toxicology", "withdrawal")
+        ):
+            missing.append(
+                "Inpatient medical assessment: physical examination, vital signs, relevant CBC/CMP/electrolytes, toxicology/withdrawal assessment, and ECG when indicated"
+            )
     return missing
 
 
@@ -38,6 +54,10 @@ def compute_red_flags(profile: PatientProfile) -> List[str]:
         flags.append("Suicide risk present: requires urgent clinical risk assessment and safety planning.")
     if enum_value(profile.severity) == "emergency":
         flags.append("Emergency severity selected: do not rely on routine outpatient algorithm.")
+    if enum_value(profile.care_setting) == "emergency_department":
+        flags.append(
+            "Emergency-department setting selected: stabilize immediate medical and behavioural risks before using the longitudinal medication sequence."
+        )
     if profile.labs.qtc_ms is not None and profile.labs.qtc_ms >= 500:
         flags.append("QTc >= 500 ms: high arrhythmia risk; avoid QT-prolonging drugs unless specialist-supervised.")
     if enum_value(profile.pregnancy_status) in (

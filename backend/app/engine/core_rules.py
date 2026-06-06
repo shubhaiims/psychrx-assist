@@ -18,11 +18,12 @@ from app.models import PreviousDrugResponse
 ADEQUATE_TRIAL_WEEKS_BY_DIAGNOSIS = {
     "schizophrenia": 4.0,
     "acute_psychosis": 4.0,
-    "ocd": 8.0,
+    "ocd": 12.0,
     "major_depressive_disorder": 6.0,
-    "generalized_anxiety_disorder": 6.0,
+    "generalized_anxiety_disorder": 8.0,
+    "social_anxiety_disorder": 10.0,
     "panic_disorder": 6.0,
-    "ptsd": 6.0,
+    "ptsd": 8.0,
     "bipolar_depression": 6.0,
     "bipolar_mania": 2.0,
 }

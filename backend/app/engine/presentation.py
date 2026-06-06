@@ -136,7 +136,12 @@ def _make_option(item: RecommendationItem, display_category: str, drugs_by_name:
 def _case_summary(ctx, module) -> CaseSummary:
     p = ctx.profile
     dx_display = module.display_name
-    bits = [f"{p.age}-year-old {ctx.sex}", ctx.age_group, f"{dx_display.lower()} ({ctx.severity})"]
+    bits = [
+        f"{p.age}-year-old {ctx.sex}",
+        ctx.age_group,
+        f"{dx_display.lower()} ({ctx.severity})",
+        ctx.care_setting.replace("_", " "),
+    ]
     if ctx.pregnant_or_planning:
         bits.append("pregnant/planning")
     if ctx.lactating:
@@ -163,6 +168,7 @@ def _case_summary(ctx, module) -> CaseSummary:
         diagnosis_display=dx_display,
         diagnosis_subtype=p.diagnosis_subtype,
         severity=ctx.severity,
+        care_setting=ctx.care_setting,
         pregnancy_status=ctx.profile.pregnancy_status.value if hasattr(ctx.profile.pregnancy_status, "value") else str(ctx.profile.pregnancy_status),
         lactating=ctx.lactating,
         renal_status=ctx.profile.renal_status.value if hasattr(ctx.profile.renal_status, "value") else str(ctx.profile.renal_status),
@@ -221,6 +227,7 @@ def build_report(profile: PatientProfile, *, extended_rules: bool = True) -> Rec
         contraindicated_or_avoid=contraindicated,
         missing_investigations=result.missing_information,
         required_monitoring=required_monitoring,
+        algorithm_notes=result.general_notes,
         non_pharmacological_recommendations=module.non_pharmacological(ctx),
         guideline_references=guideline_references,
         clinician_override_note=CLINICIAN_OVERRIDE_NOTE,

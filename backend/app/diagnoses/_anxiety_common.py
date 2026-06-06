@@ -8,16 +8,54 @@ PTSD psychotherapy).
 Extended-rule-set logic (runs only when ``ctx.extended_rules`` is on); the SSRI
 first-line reason carries a placeholder citation pending psychiatrist sign-off.
 
-Note on benzodiazepines/antipsychotics: cautions for those classes in primary anxiety
-would be appropriate, but no benzodiazepine is present in the current knowledge base
-and no antipsychotic is indicated for these diagnoses there, so such rules are left as
-documented extension points rather than dead code.
+Diagnosis modules add condition-specific safeguards for benzodiazepines,
+antipsychotics, and other later-line options rather than treating them as shared
+first-line anxiety medicines.
 """
 from __future__ import annotations
 
 from app.engine.base import DiagnosisRuleModule
 from app.engine.context import PatientContext
+from app.engine.core_rules import trial_adequacy
 from app.engine.references import cite
+from app.engine.utils import normalise
+
+
+def drug_name(drug: dict) -> str:
+    return normalise(drug.get("name", ""))
+
+
+def trial_matches(trial_name: str, names: set[str]) -> bool:
+    observed = normalise(trial_name)
+    return any(observed == name or observed in name or name in observed for name in names)
+
+
+def adequate_trials(
+    ctx: PatientContext,
+    names: set[str],
+    *,
+    responses: set[str] | None = None,
+) -> list:
+    matched = []
+    for trial in ctx.profile.previous_drug_responses:
+        if not trial_matches(trial.drug, names):
+            continue
+        if responses is not None and normalise(trial.response) not in responses:
+            continue
+        if trial_adequacy(ctx, trial) == "adequate":
+            matched.append(trial)
+    return matched
+
+
+def unique_candidates(candidates: list[dict]) -> list[dict]:
+    seen: set[str] = set()
+    unique: list[dict] = []
+    for drug in candidates:
+        name = drug_name(drug)
+        if name not in seen:
+            unique.append(drug)
+            seen.add(name)
+    return unique
 
 
 class AnxietySpectrumModule(DiagnosisRuleModule):

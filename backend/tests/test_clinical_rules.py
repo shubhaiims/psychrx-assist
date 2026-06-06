@@ -379,19 +379,109 @@ def test_acute_psychosis_rule_out_organic_note():
 # --------------------------------------------------------------------------- #
 
 def test_anxiety_ssri_first_line():
-    for dx in ("ocd", "generalized_anxiety_disorder", "panic_disorder", "ptsd"):
+    for dx in ("ocd", "generalized_anxiety_disorder", "social_anxiety_disorder", "panic_disorder", "ptsd"):
         r = recommend(diagnosis=dx)
         assert hit(item_for(r, "Sertraline"), "ANX-SSRI-FIRSTLINE") is not None, dx
 
 
 def test_ocd_dosing_note():
     r = recommend(diagnosis="ocd")
-    assert any("higher ssri doses" in n.lower() for n in r.general_notes)
+    assert any("12-week" in n.lower() for n in r.general_notes)
+
+
+def test_ocd_prefers_selected_ssris_and_keeps_clomipramine_later():
+    r = recommend(diagnosis="ocd")
+    assert hit(item_for(r, "Sertraline"), "OCD-PREFERRED-SSRI") is not None
+    clomipramine = item_for(r, "Clomipramine")
+    assert hit(clomipramine, "OCD-CLOMIPRAMINE-SAFETY") is not None
+    assert hit(clomipramine, "OCD-CLOMIPRAMINE-LATER") is None
+
+
+def test_ocd_after_one_adequate_failure_promotes_switch_and_clomipramine():
+    r = recommend(
+        diagnosis="ocd",
+        previous_drug_responses=[
+            {"drug": "Sertraline", "response": "none", "adequate_trial": True}
+        ],
+    )
+    assert hit(item_for(r, "Fluoxetine"), "OCD-SECOND-SSRI") is not None
+    assert hit(item_for(r, "Clomipramine"), "OCD-CLOMIPRAMINE-LATER") is not None
+
+
+def test_ocd_after_two_adequate_failures_allows_antipsychotic_augmentation():
+    r = recommend(
+        diagnosis="ocd",
+        previous_drug_responses=[
+            {"drug": "Sertraline", "response": "none", "adequate_trial": True},
+            {"drug": "Fluoxetine", "response": "none", "adequate_trial": True},
+        ],
+    )
+    assert hit(item_for(r, "Aripiprazole"), "OCD-ANTIPSYCHOTIC-AUGMENT") is not None
+    assert hit(item_for(r, "Risperidone"), "OCD-ANTIPSYCHOTIC-TRIAL") is not None
+
+
+def test_ocd_experimental_options_hidden_until_three_adequate_failures():
+    first = recommend(diagnosis="ocd")
+    assert item_for(first, "Memantine") is None
+    resistant = recommend(
+        diagnosis="ocd",
+        previous_drug_responses=[
+            {"drug": "Sertraline", "response": "none", "adequate_trial": True},
+            {"drug": "Fluoxetine", "response": "none", "adequate_trial": True},
+            {"drug": "Clomipramine", "response": "none", "adequate_trial": True},
+        ],
+    )
+    assert hit(item_for(resistant, "Memantine"), "OCD-EXPERIMENTAL-WEAK") is not None
+
+
+def test_gad_sequence_and_benzodiazepine_safety():
+    first = recommend(diagnosis="generalized_anxiety_disorder")
+    assert hit(item_for(first, "Sertraline"), "GAD-FIRST-SERTRALINE") is not None
+    with_substance_use = recommend(
+        diagnosis="generalized_anxiety_disorder", substance_use=["alcohol"]
+    )
+    clonazepam = item_for(with_substance_use, "Clonazepam")
+    assert clonazepam.forced_unsuitable
+    assert hit(clonazepam, "GAD-BENZO-SUBSTANCE") is not None
+
+
+def test_social_anxiety_dedicated_sequence_and_cbt():
+    first = recommend(diagnosis="social_anxiety_disorder")
+    assert hit(item_for(first, "Sertraline"), "SAD-FIRST-SSRI") is not None
+    assert any("individual disorder-specific cbt" in n.lower() for n in first.general_notes)
+    later = recommend(
+        diagnosis="social_anxiety_disorder",
+        previous_drug_responses=[
+            {"drug": "Sertraline", "response": "none", "adequate_trial": True},
+            {"drug": "Venlafaxine XR", "response": "none", "adequate_trial": True},
+        ],
+    )
+    assert hit(item_for(later, "Phenelzine"), "SAD-MAOI-LATER") is not None
 
 
 def test_ptsd_psychotherapy_note():
     r = recommend(diagnosis="ptsd")
     assert any("trauma-focused" in n.lower() for n in r.general_notes)
+
+
+def test_ptsd_prazosin_only_promoted_for_nightmares():
+    without_nightmares = recommend(diagnosis="ptsd")
+    assert hit(item_for(without_nightmares, "Prazosin"), "PTSD-PRAZOSIN-NOT-GLOBAL") is not None
+    with_nightmares = recommend(
+        diagnosis="ptsd", symptoms={"nightmares": True, "insomnia": True}
+    )
+    assert hit(item_for(with_nightmares, "Prazosin"), "PTSD-PRAZOSIN-NIGHTMARES") is not None
+    assert hit(item_for(with_nightmares, "Trazodone"), "PTSD-TRAZODONE-SLEEP") is not None
+
+
+def test_maoi_serotonergic_interaction_forces_phenelzine_unsuitable():
+    r = recommend(
+        diagnosis="social_anxiety_disorder",
+        current_medications=["sertraline"],
+    )
+    phenelzine = item_for(r, "Phenelzine")
+    assert phenelzine.forced_unsuitable
+    assert hit(phenelzine, "DDI-MAOI-SEROTONERGIC") is not None
 
 
 # --------------------------------------------------------------------------- #
@@ -614,3 +704,24 @@ def test_investigations_done_are_not_re_requested():
     r = recommend(diagnosis="major_depressive_disorder",
                   investigations_done=["Current medication list for interaction checking"])
     assert all("current medication list" not in m.lower() for m in r.missing_information)
+
+
+def test_inpatient_pathway_adds_safety_workflow_and_workup():
+    r = recommend(
+        diagnosis="schizophrenia",
+        care_setting="inpatient",
+        symptoms={"agitation": True, "aggression_risk": True},
+    )
+    assert any("de-escalation" in flag.lower() for flag in r.urgent_red_flags)
+    assert any("medication reconciliation" in item.lower() for item in r.missing_information)
+    assert any("prn" in note.lower() and "total daily dose" in note.lower() for note in r.general_notes)
+    assert any("before discharge" in note.lower() for note in r.general_notes)
+
+
+def test_poor_intake_or_immobility_is_urgent():
+    r = recommend(
+        diagnosis="major_depressive_disorder",
+        care_setting="inpatient",
+        symptoms={"poor_oral_intake": True, "immobility": True},
+    )
+    assert any("poor oral intake" in flag.lower() for flag in r.urgent_red_flags)

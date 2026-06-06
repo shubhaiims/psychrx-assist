@@ -7,7 +7,7 @@ from app.models import PatientProfile, PregnancyStatus, RecommendationReport, Se
 EXPECTED_SECTIONS = [
     "case_summary", "red_flags", "most_suitable_options", "use_with_caution",
     "relatively_unsuitable", "contraindicated_or_avoid", "missing_investigations",
-    "required_monitoring", "non_pharmacological_recommendations",
+    "required_monitoring", "algorithm_notes", "non_pharmacological_recommendations",
     "guideline_references", "clinician_override_note", "disclaimer",
 ]
 

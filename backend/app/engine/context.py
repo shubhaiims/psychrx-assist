@@ -52,6 +52,7 @@ class PatientContext:
     # Normalised primary fields
     diagnosis: str
     severity: str
+    care_setting: str
     sex: str
     age: int
     age_group: str
@@ -112,6 +113,7 @@ def build_context(profile: PatientProfile, *, extended_rules: bool = True) -> Pa
     """
     diagnosis = enum_value(profile.diagnosis)
     severity = enum_value(profile.severity)
+    care_setting = enum_value(profile.care_setting)
     sex = enum_value(profile.sex)
     pregnancy_status = enum_value(profile.pregnancy_status)
     renal_status = enum_value(profile.renal_status)
@@ -157,6 +159,7 @@ def build_context(profile: PatientProfile, *, extended_rules: bool = True) -> Pa
         profile=profile,
         diagnosis=diagnosis,
         severity=severity,
+        care_setting=care_setting,
         sex=sex,
         age=profile.age,
         age_group=age_group(profile.age),

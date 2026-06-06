@@ -429,6 +429,231 @@
     "source_type": "drug_interaction",
     "status": "placeholder"
   },
+  "DDI-MAOI-SEROTONERGIC": {
+    "citation": "Local rule placeholder: MAOI plus serotonergic medicine interaction and drug-specific washout requirements.",
+    "source_type": "drug_interaction",
+    "status": "placeholder"
+  },
+  "DDI-SEDATIVE-RESPIRATORY": {
+    "citation": "Local rule placeholder: additive respiratory depression, overdose, sedation, and falls risk with gabapentinoids/benzodiazepines plus CNS depressants.",
+    "source_type": "drug_interaction",
+    "status": "placeholder"
+  },
+  "GAD-FIRST-SERTRALINE": {
+    "citation": "NICE CG113, Generalised anxiety disorder and panic disorder in adults, recommendations 1.2.22-1.2.24; Osser DN, Psychopharmacology Algorithms (2020), GAD chapter.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-FIRST-ALTERNATIVE": {
+    "citation": "NICE CG113, GAD drug-treatment sequence; Osser DN, Psychopharmacology Algorithms (2020), GAD chapter.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-EARLY-ALTERNATIVE": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), generalized anxiety disorder alternative-treatment nodes.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "GAD-SECOND-TRIAL": {
+    "citation": "NICE CG113, alternative SSRI/SNRI after ineffective sertraline; Osser DN (2020), GAD sequence.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-SNRI-STEP": {
+    "citation": "NICE CG113, SSRI/SNRI sequencing; Osser DN (2020), GAD algorithm.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-PREGABALIN-LATER": {
+    "citation": "NICE CG113 recommendation 1.2.25; Osser DN (2020), GAD algorithm.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-PARTIAL-AUGMENT": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), GAD partial-response augmentation discussion.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "GAD-PARTIAL-AUGMENT-WEAK": {
+    "citation": "NICE CG113 treatment-refractory GAD specialist-care recommendations; local evidence review required.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-PAROXETINE-BURDEN": {
+    "citation": "NICE CG113 recommendation 1.2.24, withdrawal and interaction considerations; licensed monograph review required.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-VENLAFAXINE-BURDEN": {
+    "citation": "NICE CG113 recommendation 1.2.24, withdrawal and overdose-toxicity considerations.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-BUPROPION-LIMITED": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), GAD alternative node; current local guideline review required.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "GAD-BENZO-CRISIS-ONLY": {
+    "citation": "NICE CG113 recommendation 1.2.26: benzodiazepines only as a short-term measure during crises.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "GAD-BENZO-SUBSTANCE": {
+    "citation": "NICE CG113 benzodiazepine restriction plus local substance-use/dependence guidance.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "GAD-SGA-REFRACTORY": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), refractory GAD nodes.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "GAD-SGA-SPECIALIST": {
+    "citation": "NICE CG113 recommendation 1.2.27 and specialist step-4 care: do not offer antipsychotics for GAD in primary care.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SAD-FIRST-SSRI": {
+    "citation": "NICE CG159 recommendations 1.3.6-1.3.7; Osser DN, Psychopharmacology Algorithms (2020), social anxiety chapter.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SAD-SECOND-MEDICATION": {
+    "citation": "NICE CG159 recommendation 1.3.10; Osser DN (2020), social anxiety medication sequence.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SAD-MAOI-LATER": {
+    "citation": "NICE CG159 later pharmacological sequence; Osser DN (2020), social anxiety MAOI node.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SAD-MAOI-SAFETY": {
+    "citation": "Licensed MAOI monograph and local interaction/dietary safety protocol required.",
+    "source_type": "drug_reference",
+    "status": "placeholder"
+  },
+  "SAD-WITHDRAWAL-BURDEN": {
+    "citation": "NICE CG159 medication adverse-effect and discontinuation recommendations.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SAD-FLUVOXAMINE-INTERACTIONS": {
+    "citation": "Licensed fluvoxamine monograph and validated drug-interaction reference required.",
+    "source_type": "drug_reference",
+    "status": "placeholder"
+  },
+  "SAD-BUSPIRONE-AUGMENT": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), social anxiety partial-response augmentation discussion.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "SAD-BUSPIRONE-WEAK": {
+    "citation": "NICE CG159 recommendation 1.3.9 prefers adding individual CBT after partial SSRI response.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SAD-NONROUTINE": {
+    "citation": "NICE CG159 recommendation 1.6.2 and Osser DN (2020) historical/experimental social anxiety options.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "SAD-BENZO-SUBSTANCE": {
+    "citation": "NICE CG159 non-routine benzodiazepine recommendation plus local substance-use/dependence guidance.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "PTSD-MED-FIRSTLINE": {
+    "citation": "VA/DoD Clinical Practice Guideline for PTSD (2023), Clinician's Guide to Medications for PTSD; Osser DN (2020), PTSD chapter.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "PTSD-NEXT-TRIAL": {
+    "citation": "VA/DoD PTSD CPG (2023) medication evidence table; Osser DN (2020), PTSD sequence.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "PTSD-PAROXETINE-BURDEN": {
+    "citation": "VA/DoD PTSD CPG (2023) plus licensed paroxetine monograph and perinatal guidance.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "PTSD-PRAZOSIN-NIGHTMARES": {
+    "citation": "VA/DoD PTSD CPG (2023): prazosin suggested for PTSD-associated nightmares; Osser DN (2020), PTSD sleep node.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "PTSD-PRAZOSIN-NOT-GLOBAL": {
+    "citation": "VA/DoD PTSD CPG (2023): prazosin suggested against for treatment of global PTSD symptoms.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "PTSD-TRAZODONE-SLEEP": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), PTSD sleep-treatment node.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "PTSD-TRAZODONE-LIMITED": {
+    "citation": "VA/DoD PTSD CPG (2023) evidence review plus licensed trazodone monograph.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "PTSD-MIRTAZAPINE-UNCERTAIN": {
+    "citation": "VA/DoD PTSD CPG (2023): insufficient evidence for or against mirtazapine for PTSD; Osser DN (2020), PTSD chapter.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "OCD-PREFERRED-SSRI": {
+    "citation": "NICE CG31 OCD recommendations; Osser DN, Psychopharmacology Algorithms (2020), OCD chapter.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "OCD-SECOND-SSRI": {
+    "citation": "NICE CG31 poor-response sequence; Osser DN (2020), OCD second-SRI node.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "OCD-CLOMIPRAMINE-LATER": {
+    "citation": "NICE CG31 recommendation 1.5.5.3; Osser DN (2020), OCD clomipramine node.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "OCD-CLOMIPRAMINE-SAFETY": {
+    "citation": "NICE CG31 clomipramine ECG/overdose precautions and licensed monograph.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "OCD-PAROXETINE-BURDEN": {
+    "citation": "NICE CG31 antidepressant adverse-effect considerations plus licensed paroxetine monograph.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "OCD-ESCITALOPRAM-QT": {
+    "citation": "Licensed escitalopram monograph and local QT-risk guidance; high-dose OCD use requires specialist review.",
+    "source_type": "drug_reference",
+    "status": "placeholder"
+  },
+  "OCD-ANTIPSYCHOTIC-AUGMENT": {
+    "citation": "NICE CG31 specialist poor-response pathway; Osser DN (2020), OCD aripiprazole/risperidone augmentation node.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "OCD-ANTIPSYCHOTIC-TRIAL": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), time-limited low-dose antipsychotic augmentation discussion; local metabolic/EPS guidance.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "OCD-EXPERIMENTAL-LATER": {
+    "citation": "Osser DN. Psychopharmacology Algorithms (2020), refractory OCD experimental augmentation nodes.",
+    "source_type": "algorithm",
+    "status": "placeholder"
+  },
+  "OCD-EXPERIMENTAL-WEAK": {
+    "citation": "NICE CG31 multidisciplinary specialist review for refractory OCD; local evidence review required.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
   "_meta": {
     "description": "Maps each rule_id used by the engine to its supporting citation. Every entry is a PLACEHOLDER until a psychiatrist replaces it with a real, licensed guideline / drug-reference citation. The engine never invents citations; an unmapped rule simply carries no reference.",
     "status_legend": {
