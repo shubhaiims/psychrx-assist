@@ -31,6 +31,7 @@ from app.diagnoses import bipolar_maintenance  # noqa: F401
 # Psychosis
 from app.diagnoses import schizophrenia  # noqa: F401
 from app.diagnoses import acute_psychosis  # noqa: F401
+from app.diagnoses import catatonia  # noqa: F401
 
 # Anxiety / obsessive-compulsive / trauma
 from app.diagnoses import ocd  # noqa: F401
@@ -40,6 +41,7 @@ from app.diagnoses import panic_disorder  # noqa: F401
 from app.diagnoses import ptsd  # noqa: F401
 
 # Neurodevelopmental
+from app.diagnoses import autism_spectrum_disorder  # noqa: F401
 from app.diagnoses import adhd  # noqa: F401
 
 # Substance use

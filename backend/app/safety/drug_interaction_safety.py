@@ -95,7 +95,7 @@ INTERACTIONS: List[dict] = [
     },
     {
         "rule_id": "DDI-SEDATIVE-RESPIRATORY",
-        "applies_to_names": ["clonazepam", "pregabalin", "gabapentin"],
+        "applies_to_names": ["clonazepam", "lorazepam", "pregabalin", "gabapentin"],
         "current_med_keywords": [
             "opioid", "morphine", "oxycodone", "fentanyl", "codeine", "methadone",
             "buprenorphine", "alcohol", "benzodiazepine", "zopiclone", "zolpidem",

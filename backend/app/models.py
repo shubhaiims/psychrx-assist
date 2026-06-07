@@ -67,6 +67,65 @@ class CareSetting(str, Enum):
     inpatient = "inpatient"
 
 
+class CatatoniaSubtype(str, Enum):
+    unspecified = "unspecified"
+    non_malignant = "non_malignant"
+    malignant = "malignant"
+    nms = "nms"
+    antipsychotic_induced = "antipsychotic_induced"
+    benzodiazepine_withdrawal = "benzodiazepine_withdrawal"
+    clozapine_withdrawal = "clozapine_withdrawal"
+    chronic_schizophrenia = "chronic_schizophrenia"
+    periodic = "periodic"
+    autism_associated = "autism_associated"
+
+
+class LorazepamChallengeResponse(str, Enum):
+    not_done = "not_done"
+    positive = "positive"
+    partial = "partial"
+    negative = "negative"
+
+
+class LorazepamTrialOutcome(str, Enum):
+    not_started = "not_started"
+    in_progress = "in_progress"
+    remitted = "remitted"
+    partial = "partial"
+    none = "none"
+    intolerable = "intolerable"
+
+
+class EctStatus(str, Enum):
+    not_assessed = "not_assessed"
+    available_not_started = "available_not_started"
+    in_progress = "in_progress"
+    remitted = "remitted"
+    partial = "partial"
+    none = "none"
+    unavailable = "unavailable"
+    contraindicated = "contraindicated"
+
+
+class ASDTargetDomain(str, Enum):
+    none = "none"
+    irritability = "irritability"
+    adhd = "adhd"
+    anxiety = "anxiety"
+    depression = "depression"
+    sleep = "sleep"
+    feeding = "feeding"
+    repetitive_behaviour = "repetitive_behaviour"
+    distress_agitation = "distress_agitation"
+
+
+class ASDIrritabilityLevel(str, Enum):
+    absent = "absent"
+    mild = "mild"
+    moderate = "moderate"
+    severe = "severe"
+
+
 class Suicidality(str, Enum):
     """Graded suicidality. ``suicide_risk`` (a bool) remains the field the baseline
     safety rule keys on; this graded field refines it for the extended rule set."""
@@ -99,6 +158,61 @@ class SymptomProfile(BaseModel):
     dissociation: bool = False
     poor_oral_intake: bool = False
     immobility: bool = False
+    stupor: bool = False
+    mutism: bool = False
+    posturing: bool = False
+    negativism: bool = False
+    stereotypy: bool = False
+    echophenomena: bool = False
+    rigidity: bool = False
+    excitement: bool = False
+    autonomic_instability: bool = False
+    hyperthermia: bool = False
+    altered_consciousness: bool = False
+    self_injury: bool = False
+    hyperactivity: bool = False
+    inattention: bool = False
+    impulsivity: bool = False
+    repetitive_behaviour: bool = False
+    sensory_sensitivity: bool = False
+    communication_difficulty: bool = False
+    feeding_problem: bool = False
+
+
+class ASDAssessment(BaseModel):
+    """Target-symptom fields for autism-spectrum presentations."""
+
+    target_domain: ASDTargetDomain = ASDTargetDomain.none
+    irritability_level: ASDIrritabilityLevel = ASDIrritabilityLevel.absent
+    target_behaviour_defined: bool = False
+    baseline_measure_recorded: bool = False
+    functional_behaviour_assessment_done: bool = False
+    psychosocial_intervention_attempted: bool = False
+    psychosocial_unavailable_due_to_severity: bool = False
+    medical_or_environmental_triggers_reviewed: bool = False
+    communication_needs_reviewed: bool = False
+    sensory_triggers_reviewed: bool = False
+    sleep_plan_attempted: bool = False
+    sleep_log_days: Optional[int] = Field(default=None, ge=0, le=60)
+    feeding_nutritional_assessment_done: bool = False
+
+
+class CatatoniaAssessment(BaseModel):
+    """Structured fields used only by the dedicated catatonia pathway."""
+
+    subtype: CatatoniaSubtype = CatatoniaSubtype.unspecified
+    sign_count: Optional[int] = Field(default=None, ge=0, le=30)
+    bfcrs_score: Optional[int] = Field(default=None, ge=0, le=69)
+    first_episode: bool = False
+    temperature_c: Optional[float] = Field(default=None, ge=30, le=45)
+    heart_rate_bpm: Optional[int] = Field(default=None, ge=20, le=250)
+    recent_dopamine_antagonist_exposure: bool = False
+    lorazepam_challenge_response: LorazepamChallengeResponse = LorazepamChallengeResponse.not_done
+    lorazepam_trial_outcome: LorazepamTrialOutcome = LorazepamTrialOutcome.not_started
+    lorazepam_current_daily_mg: Optional[float] = Field(default=None, ge=0, le=30)
+    lorazepam_trial_limited_by_side_effects: bool = False
+    ect_status: EctStatus = EctStatus.not_assessed
+    clear_change_from_autism_baseline: Optional[bool] = None
 
 
 class PreviousDrugResponse(BaseModel):
@@ -124,6 +238,8 @@ class LabValues(BaseModel):
     prolactin: Optional[float] = None
     anc: Optional[float] = None
     platelet_count: Optional[float] = None
+    creatine_kinase: Optional[float] = None
+    serum_iron: Optional[float] = None
     pregnancy_test_done: Optional[bool] = None
 
 
@@ -165,6 +281,8 @@ class PatientProfile(BaseModel):
 
     # --- symptom dimensions & risk ---
     symptoms: SymptomProfile = Field(default_factory=SymptomProfile)
+    catatonia_assessment: CatatoniaAssessment = Field(default_factory=CatatoniaAssessment)
+    asd_assessment: ASDAssessment = Field(default_factory=ASDAssessment)
     suicide_risk: bool = False
     suicidality: Optional[Suicidality] = None
 

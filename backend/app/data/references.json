@@ -654,6 +654,156 @@
     "source_type": "guideline",
     "status": "placeholder"
   },
+  "CAT-LORAZEPAM-FIRSTLINE": {
+    "citation": "British Association for Psychopharmacology. Evidence-based consensus guidelines for the management of catatonia. J Psychopharmacol. 2023. doi:10.1177/02698811231158232.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-LORAZEPAM-CHALLENGE": {
+    "citation": "BAP catatonia guideline (2023), lorazepam challenge protocol and response assessment. doi:10.1177/02698811231158232.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-LORAZEPAM-TAPER": {
+    "citation": "BAP catatonia guideline (2023), benzodiazepine discontinuation and relapse recommendations. doi:10.1177/02698811231158232.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-LORAZEPAM-RESPONSE": {
+    "citation": "BAP catatonia guideline (2023), benzodiazepine response, continuation and taper recommendations. doi:10.1177/02698811231158232.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-LORAZEPAM-RESPIRATORY": {
+    "citation": "BAP catatonia guideline (2023) and licensed lorazepam monograph; local respiratory-monitoring policy required.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "CAT-NMDA-LATER": {
+    "citation": "BAP catatonia guideline (2023), recommendations for amantadine or memantine after unavailable, contraindicated, ineffective or partially effective first-line treatment.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-NMDA-EVIDENCE": {
+    "citation": "BAP catatonia guideline (2023), NMDA-antagonist evidence review. doi:10.1177/02698811231158232.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-NMS-MODERATE": {
+    "citation": "BAP catatonia guideline (2023), moderate neuroleptic malignant syndrome recommendations.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-NMS-SEVERE": {
+    "citation": "BAP catatonia guideline (2023), severe neuroleptic malignant syndrome recommendations.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-NMS-DOPAMINE-AGONIST": {
+    "citation": "BAP catatonia guideline (2023), bromocriptine or amantadine in moderate/severe NMS.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-NMS-DANTROLENE": {
+    "citation": "BAP catatonia guideline (2023), dantrolene in severe NMS.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-NMS-AMANTADINE": {
+    "citation": "BAP catatonia guideline (2023), amantadine in moderate/severe NMS.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-CLOZAPINE-WITHDRAWAL": {
+    "citation": "BAP catatonia guideline (2023), clozapine-withdrawal catatonia recommendations.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-CHRONIC-CLOZAPINE": {
+    "citation": "BAP catatonia guideline (2023), chronic mild catatonia in schizophrenia and clozapine.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-PERIODIC-LITHIUM": {
+    "citation": "BAP catatonia guideline (2023), periodic catatonia maintenance recommendations.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "CAT-PERIODIC-NOT-ACUTE": {
+    "citation": "BAP catatonia guideline (2023), periodic catatonia acute treatment and prophylaxis distinction.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-NONPHARM-FIRST": {
+    "citation": "NICE CG170 Autism spectrum disorder in under 19s: support and management; AACAP Practice Parameter for ASD (2014); Subramanyam et al. Clinical Practice Guidelines for Autism Spectrum Disorders (2019).",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-IRRITABILITY-ANTIPSYCHOTIC": {
+    "citation": "AACAP Practice Parameter for ASD (2014); Fung et al. Pharmacologic treatment of severe irritability and problem behaviors in autism, Pediatrics 2016; NICE CG170 challenging behaviour medication recommendations.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-ANTIPSYCHOTIC-MONITOR": {
+    "citation": "NICE CG170 recommendations for antipsychotic use in autistic children with behaviour that challenges; licensed risperidone/aripiprazole monographs.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "ASD-IRRITABILITY-ALPHA2": {
+    "citation": "Subramanyam et al. Clinical Practice Guidelines for Autism Spectrum Disorders (2019), target-symptom pharmacotherapy figure; Lurie Center proposal for co-occurring symptoms in ASD (BMC Medicine 2025).",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-ADHD-ALPHA2": {
+    "citation": "Lurie Center proposal for pharmacological treatment of co-occurring symptoms in ASD (BMC Medicine 2025); ASD child/adolescent CPG 2019 target-symptom algorithm.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-ADHD-ATOMOXETINE": {
+    "citation": "ASD child/adolescent CPG 2019 pharmacotherapy update; Lurie Center ASD pharmacology proposal (BMC Medicine 2025).",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-ADHD-STIMULANT": {
+    "citation": "AACAP Practice Parameter for ASD (2014) and ASD child/adolescent CPG 2019: methylphenidate evidence for ADHD symptoms in ASD.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-STIMULANT-TOLERABILITY": {
+    "citation": "ASD child/adolescent CPG 2019 adverse-effect table; licensed methylphenidate monograph.",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "ASD-ANXIETY-BUSPIRONE-MIRTAZAPINE": {
+    "citation": "Lurie Center proposal for pharmacological treatment of anxiety in ASD (BMC Medicine 2025).",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-SSRI-ACTIVATION": {
+    "citation": "ASD child/adolescent CPG 2019 pharmacotherapy update and adverse-effect table; Lurie Center ASD pharmacology proposal (BMC Medicine 2025).",
+    "source_type": "safety",
+    "status": "placeholder"
+  },
+  "ASD-DEPRESSION-TARGETED": {
+    "citation": "Lurie Center proposal for depression treatment in ASD (BMC Medicine 2025); NICE CG170 coexisting mental health condition principles.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-SLEEP-MELATONIN": {
+    "citation": "NICE CG170 sleep intervention pathway for autistic children; ASD child/adolescent CPG 2019 sleep section.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-SLEEP-BEHAVIOURAL-FIRST": {
+    "citation": "NICE CG170 sleep intervention pathway for autistic children and young people.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
+  "ASD-PSYCHOSOCIAL-FIRST": {
+    "citation": "NICE CG170; AACAP Practice Parameter for ASD (2014); ASD child/adolescent CPG 2019 non-pharmacological approaches.",
+    "source_type": "guideline",
+    "status": "placeholder"
+  },
   "_meta": {
     "description": "Maps each rule_id used by the engine to its supporting citation. Every entry is a PLACEHOLDER until a psychiatrist replaces it with a real, licensed guideline / drug-reference citation. The engine never invents citations; an unmapped rule simply carries no reference.",
     "status_legend": {

@@ -6,6 +6,15 @@ import type { RecommendationReport, DrugOption, GuidelineReference } from "@/lib
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
 
+const CATATONIA_DIAGNOSES = new Set([
+  "catatonia_associated_with_another_mental_disorder",
+  "catatonia_induced_by_substances_or_medications",
+  "secondary_catatonia",
+  "secondary_catatonia_syndrome",
+]);
+
+const ASD_DIAGNOSES = new Set(["autism_spectrum_disorder"]);
+
 const SYMPTOMS: [string, string][] = [
   ["psychotic", "Psychotic features"], ["negative", "Prominent negative symptoms"],
   ["manic", "Manic features"],
@@ -15,13 +24,27 @@ const SYMPTOMS: [string, string][] = [
   ["nightmares", "Trauma-related nightmares"], ["hyperarousal", "Hyperarousal"],
   ["reexperiencing", "Trauma re-experiencing"], ["avoidance", "Trauma avoidance"],
   ["dissociation", "Dissociative symptoms"],
+  ["poor_oral_intake", "Poor oral intake"], ["immobility", "Immobility"],
+  ["self_injury", "Self-injury"], ["hyperactivity", "Hyperactivity"],
+  ["inattention", "Inattention"], ["impulsivity", "Impulsivity"],
+  ["repetitive_behaviour", "Repetitive behaviour"], ["sensory_sensitivity", "Sensory sensitivity"],
+  ["communication_difficulty", "Communication difficulty"], ["feeding_problem", "Feeding problem"],
+];
+
+const CATATONIA_SIGNS: [string, string][] = [
+  ["stupor", "Stupor"], ["mutism", "Mutism"], ["posturing", "Posturing / catalepsy"],
+  ["negativism", "Negativism"], ["stereotypy", "Stereotypy / mannerisms"],
+  ["echophenomena", "Echolalia / echopraxia"], ["rigidity", "Rigidity"],
+  ["excitement", "Catatonic excitement"], ["autonomic_instability", "Autonomic instability"],
+  ["hyperthermia", "Hyperthermia"], ["altered_consciousness", "Altered consciousness"],
 ];
 
 const LABS: [string, string][] = [
   ["egfr", "eGFR"], ["alt", "ALT"], ["ast", "AST"], ["qtc_ms", "QTc (ms)"],
   ["tsh", "TSH"], ["hba1c", "HbA1c (%)"], ["fasting_glucose", "Fasting glucose"],
   ["triglycerides", "Triglycerides"], ["prolactin", "Prolactin"],
-  ["anc", "ANC"], ["platelet_count", "Platelets"],
+  ["anc", "ANC"], ["platelet_count", "Platelets"], ["creatine_kinase", "Creatine kinase"],
+  ["serum_iron", "Serum iron"],
 ];
 
 const list = (s: string): string[] => s.split(",").map((x) => x.trim()).filter(Boolean);
@@ -147,12 +170,32 @@ export default function Assessment() {
     suicide_risk: false, suicidality: "none", non_adherence_risk: false,
     cardiac_disease: false, seizure_disorder: false, cost_concern: false,
     pregnancy_test_done: false,
+    catatonia_subtype: "unspecified", catatonia_sign_count: "", bfcrs_score: "",
+    catatonia_first_episode: false, temperature_c: "", heart_rate_bpm: "",
+    recent_dopamine_antagonist_exposure: false,
+    lorazepam_challenge_response: "not_done", lorazepam_trial_outcome: "not_started",
+    lorazepam_current_daily_mg: "", lorazepam_trial_limited_by_side_effects: false,
+    ect_status: "not_assessed", clear_change_from_autism_baseline: "",
+    asd_target_domain: "none", asd_irritability_level: "absent",
+    asd_target_behaviour_defined: false, asd_baseline_measure_recorded: false,
+    asd_functional_behaviour_assessment_done: false, asd_psychosocial_intervention_attempted: false,
+    asd_psychosocial_unavailable_due_to_severity: false,
+    asd_medical_or_environmental_triggers_reviewed: false,
+    asd_communication_needs_reviewed: false, asd_sensory_triggers_reviewed: false,
+    asd_sleep_plan_attempted: false, asd_sleep_log_days: "",
+    asd_feeding_nutritional_assessment_done: false,
   });
   const [sym, setSym] = useState<Sym>({
     psychotic: false, negative: false, manic: false, depressive: false, anxiety: false, ocd: false,
     aggression_risk: false, catatonia: false, agitation: false, insomnia: false,
     nightmares: false, hyperarousal: false, reexperiencing: false, avoidance: false,
     dissociation: false, poor_oral_intake: false, immobility: false,
+    stupor: false, mutism: false, posturing: false, negativism: false,
+    stereotypy: false, echophenomena: false, rigidity: false, excitement: false,
+    autonomic_instability: false, hyperthermia: false, altered_consciousness: false,
+    self_injury: false, hyperactivity: false, inattention: false, impulsivity: false,
+    repetitive_behaviour: false, sensory_sensitivity: false, communication_difficulty: false,
+    feeding_problem: false,
   });
   const [labs, setLabs] = useState<Record<string, string>>({});
   const [familyHistory, setFamilyHistory] = useState("");
@@ -214,6 +257,39 @@ export default function Assessment() {
       total_duration_months: numOrNull(f.total_duration_months),
       current_episode_duration_weeks: numOrNull(f.current_episode_duration_weeks),
       symptoms: sym,
+      catatonia_assessment: {
+        subtype: f.catatonia_subtype,
+        sign_count: numOrNull(f.catatonia_sign_count),
+        bfcrs_score: numOrNull(f.bfcrs_score),
+        first_episode: f.catatonia_first_episode,
+        temperature_c: numOrNull(f.temperature_c),
+        heart_rate_bpm: numOrNull(f.heart_rate_bpm),
+        recent_dopamine_antagonist_exposure: f.recent_dopamine_antagonist_exposure,
+        lorazepam_challenge_response: f.lorazepam_challenge_response,
+        lorazepam_trial_outcome: f.lorazepam_trial_outcome,
+        lorazepam_current_daily_mg: numOrNull(f.lorazepam_current_daily_mg),
+        lorazepam_trial_limited_by_side_effects: f.lorazepam_trial_limited_by_side_effects,
+        ect_status: f.ect_status,
+        clear_change_from_autism_baseline:
+          f.clear_change_from_autism_baseline === ""
+            ? null
+            : f.clear_change_from_autism_baseline === "yes",
+      },
+      asd_assessment: {
+        target_domain: f.asd_target_domain,
+        irritability_level: f.asd_irritability_level,
+        target_behaviour_defined: f.asd_target_behaviour_defined,
+        baseline_measure_recorded: f.asd_baseline_measure_recorded,
+        functional_behaviour_assessment_done: f.asd_functional_behaviour_assessment_done,
+        psychosocial_intervention_attempted: f.asd_psychosocial_intervention_attempted,
+        psychosocial_unavailable_due_to_severity: f.asd_psychosocial_unavailable_due_to_severity,
+        medical_or_environmental_triggers_reviewed: f.asd_medical_or_environmental_triggers_reviewed,
+        communication_needs_reviewed: f.asd_communication_needs_reviewed,
+        sensory_triggers_reviewed: f.asd_sensory_triggers_reviewed,
+        sleep_plan_attempted: f.asd_sleep_plan_attempted,
+        sleep_log_days: numOrNull(f.asd_sleep_log_days),
+        feeding_nutritional_assessment_done: f.asd_feeding_nutritional_assessment_done,
+      },
       suicide_risk: f.suicide_risk, suicidality: f.suicidality, non_adherence_risk: f.non_adherence_risk,
       cost_concern: f.cost_concern,
       family_history: list(familyHistory),
@@ -420,6 +496,178 @@ export default function Assessment() {
                   </div>
                 ))}
               </div></div>
+            {ASD_DIAGNOSES.has(f.diagnosis) && (
+              <>
+                <div className="field wide">
+                  <label>ASD target-symptom pathway</label>
+                  <select value={f.asd_target_domain} onChange={(e) => set("asd_target_domain", e.target.value)}>
+                    <option value="none">Choose one target symptom</option>
+                    <option value="irritability">Irritability / tantrums / aggression / self-injury</option>
+                    <option value="adhd">Hyperactivity / impulsivity / inattention</option>
+                    <option value="anxiety">Anxiety / OCD-like symptoms</option>
+                    <option value="depression">Depression / mood symptoms</option>
+                    <option value="sleep">Sleep disturbance</option>
+                    <option value="feeding">Feeding / nutrition problem</option>
+                    <option value="repetitive_behaviour">Repetitive behaviour</option>
+                    <option value="distress_agitation">Acute distress / agitation</option>
+                  </select>
+                  <span className="hint">Medication is ranked only for a defined target symptom, not for autism itself.</span>
+                </div>
+                <div className="field"><label>Irritability / risk level</label>
+                  <select value={f.asd_irritability_level} onChange={(e) => set("asd_irritability_level", e.target.value)}>
+                    <option value="absent">Absent / not target</option><option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option><option value="severe">Severe / dangerous</option>
+                  </select></div>
+                <div className="field"><label>Sleep log days</label>
+                  <input type="number" min="0" max="60" value={f.asd_sleep_log_days}
+                    onChange={(e) => set("asd_sleep_log_days", e.target.value)} /></div>
+                <div className="field wide">
+                  <label>ASD pre-medication checks</label>
+                  <div className="checkGroup">
+                    <div className="checkboxRow">
+                      <input id="asd-target-defined" type="checkbox" checked={f.asd_target_behaviour_defined}
+                        onChange={(e) => set("asd_target_behaviour_defined", e.target.checked)} />
+                      <label htmlFor="asd-target-defined">Target behaviour defined with frequency/severity/impact</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-baseline" type="checkbox" checked={f.asd_baseline_measure_recorded}
+                        onChange={(e) => set("asd_baseline_measure_recorded", e.target.checked)} />
+                      <label htmlFor="asd-baseline">Baseline rating/measure recorded</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-fba" type="checkbox" checked={f.asd_functional_behaviour_assessment_done}
+                        onChange={(e) => set("asd_functional_behaviour_assessment_done", e.target.checked)} />
+                      <label htmlFor="asd-fba">Functional behaviour assessment completed</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-psychosocial" type="checkbox" checked={f.asd_psychosocial_intervention_attempted}
+                        onChange={(e) => set("asd_psychosocial_intervention_attempted", e.target.checked)} />
+                      <label htmlFor="asd-psychosocial">Behavioural / educational / environmental supports attempted</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-urgent" type="checkbox" checked={f.asd_psychosocial_unavailable_due_to_severity}
+                        onChange={(e) => set("asd_psychosocial_unavailable_due_to_severity", e.target.checked)} />
+                      <label htmlFor="asd-urgent">Immediate severity/risk means medication cannot wait</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-medical" type="checkbox" checked={f.asd_medical_or_environmental_triggers_reviewed}
+                        onChange={(e) => set("asd_medical_or_environmental_triggers_reviewed", e.target.checked)} />
+                      <label htmlFor="asd-medical">Medical/environmental triggers reviewed</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-communication" type="checkbox" checked={f.asd_communication_needs_reviewed}
+                        onChange={(e) => set("asd_communication_needs_reviewed", e.target.checked)} />
+                      <label htmlFor="asd-communication">Communication needs/supports reviewed</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-sensory" type="checkbox" checked={f.asd_sensory_triggers_reviewed}
+                        onChange={(e) => set("asd_sensory_triggers_reviewed", e.target.checked)} />
+                      <label htmlFor="asd-sensory">Sensory triggers/routine change reviewed</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-sleep-plan" type="checkbox" checked={f.asd_sleep_plan_attempted}
+                        onChange={(e) => set("asd_sleep_plan_attempted", e.target.checked)} />
+                      <label htmlFor="asd-sleep-plan">Behavioural sleep plan attempted</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="asd-feeding" type="checkbox" checked={f.asd_feeding_nutritional_assessment_done}
+                        onChange={(e) => set("asd_feeding_nutritional_assessment_done", e.target.checked)} />
+                      <label htmlFor="asd-feeding">Feeding/nutrition and sensory/oral-motor assessment done</label>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {CATATONIA_DIAGNOSES.has(f.diagnosis) && (
+              <>
+                <div className="field wide">
+                  <label>Catatonia signs</label>
+                  <div className="checkGroup">
+                    {CATATONIA_SIGNS.map(([k, l]) => (
+                      <div className="checkboxRow" key={k}>
+                        <input id={`cat-${k}`} type="checkbox" checked={sym[k]}
+                          onChange={(e) => setSym((p) => ({ ...p, [k]: e.target.checked }))} />
+                        <label htmlFor={`cat-${k}`}>{l}</label>
+                      </div>
+                    ))}
+                  </div>
+                  <span className="hint">Record at least three characteristic signs and use BFCRS in adults or PCRS in children where appropriate.</span>
+                </div>
+                <div className="field"><label>Catatonia presentation</label>
+                  <select value={f.catatonia_subtype} onChange={(e) => set("catatonia_subtype", e.target.value)}>
+                    <option value="unspecified">Not yet classified</option>
+                    <option value="non_malignant">Non-malignant catatonia</option>
+                    <option value="malignant">Malignant catatonia</option>
+                    <option value="nms">Neuroleptic malignant syndrome</option>
+                    <option value="antipsychotic_induced">Antipsychotic-induced catatonia</option>
+                    <option value="benzodiazepine_withdrawal">Benzodiazepine-withdrawal catatonia</option>
+                    <option value="clozapine_withdrawal">Clozapine-withdrawal catatonia</option>
+                    <option value="chronic_schizophrenia">Chronic schizophrenia-associated catatonia</option>
+                    <option value="periodic">Periodic catatonia</option>
+                    <option value="autism_associated">Autism-associated catatonia</option>
+                  </select></div>
+                <div className="field"><label>Number of catatonia signs</label>
+                  <input type="number" min="0" max="30" value={f.catatonia_sign_count}
+                    onChange={(e) => set("catatonia_sign_count", e.target.value)} /></div>
+                <div className="field"><label>BFCRS / PCRS total</label>
+                  <input type="number" min="0" max="69" value={f.bfcrs_score}
+                    onChange={(e) => set("bfcrs_score", e.target.value)} /></div>
+                <div className="field"><label>Temperature (C)</label>
+                  <input type="number" step="0.1" min="30" max="45" value={f.temperature_c}
+                    onChange={(e) => set("temperature_c", e.target.value)} /></div>
+                <div className="field"><label>Heart rate (beats/min)</label>
+                  <input type="number" min="20" max="250" value={f.heart_rate_bpm}
+                    onChange={(e) => set("heart_rate_bpm", e.target.value)} /></div>
+                <div className="field"><label>Lorazepam challenge response</label>
+                  <select value={f.lorazepam_challenge_response} onChange={(e) => set("lorazepam_challenge_response", e.target.value)}>
+                    <option value="not_done">Not done</option><option value="positive">Positive</option>
+                    <option value="partial">Partial</option><option value="negative">No response</option>
+                  </select></div>
+                <div className="field"><label>Scheduled lorazepam trial</label>
+                  <select value={f.lorazepam_trial_outcome} onChange={(e) => set("lorazepam_trial_outcome", e.target.value)}>
+                    <option value="not_started">Not started</option><option value="in_progress">In progress</option>
+                    <option value="remitted">Remission</option><option value="partial">Partial response</option>
+                    <option value="none">No response</option><option value="intolerable">Stopped for adverse effects</option>
+                  </select></div>
+                <div className="field"><label>Current lorazepam total (mg/day)</label>
+                  <input type="number" step="0.5" min="0" max="30" value={f.lorazepam_current_daily_mg}
+                    onChange={(e) => set("lorazepam_current_daily_mg", e.target.value)} />
+                  <span className="hint">For adequacy assessment only; this tool does not generate a dose.</span></div>
+                <div className="field"><label>ECT status</label>
+                  <select value={f.ect_status} onChange={(e) => set("ect_status", e.target.value)}>
+                    <option value="not_assessed">Not assessed</option><option value="available_not_started">Available, not started</option>
+                    <option value="in_progress">In progress</option><option value="remitted">Remission</option>
+                    <option value="partial">Partial response</option><option value="none">No response</option>
+                    <option value="unavailable">Unavailable</option><option value="contraindicated">Contraindicated</option>
+                  </select></div>
+                <div className="field wide">
+                  <div className="checkGroup">
+                    <div className="checkboxRow">
+                      <input id="cat-first" type="checkbox" checked={f.catatonia_first_episode}
+                        onChange={(e) => set("catatonia_first_episode", e.target.checked)} />
+                      <label htmlFor="cat-first">First episode or cause unclear</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="cat-dopamine" type="checkbox" checked={f.recent_dopamine_antagonist_exposure}
+                        onChange={(e) => set("recent_dopamine_antagonist_exposure", e.target.checked)} />
+                      <label htmlFor="cat-dopamine">Recent dopamine-antagonist exposure</label>
+                    </div>
+                    <div className="checkboxRow">
+                      <input id="cat-side-effects" type="checkbox" checked={f.lorazepam_trial_limited_by_side_effects}
+                        onChange={(e) => set("lorazepam_trial_limited_by_side_effects", e.target.checked)} />
+                      <label htmlFor="cat-side-effects">Lorazepam trial limited by adverse effects</label>
+                    </div>
+                  </div>
+                </div>
+                {f.catatonia_subtype === "autism_associated" && (
+                  <div className="field"><label>Clear change from autism baseline?</label>
+                    <select value={f.clear_change_from_autism_baseline}
+                      onChange={(e) => set("clear_change_from_autism_baseline", e.target.value)}>
+                      <option value="">Not established</option><option value="yes">Yes</option><option value="no">No</option>
+                    </select></div>
+                )}
+              </>
+            )}
             <div className="field wide"><label>Family history of psychiatric illness</label>
               <input type="text" value={familyHistory} placeholder="e.g. bipolar disorder, schizophrenia"
                 onChange={(e) => setFamilyHistory(e.target.value)} />
